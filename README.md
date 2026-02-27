@@ -77,6 +77,8 @@ PO：發散探索 → 產出 DISCOVERY.md（中間產物，來回迭代）
 Architect：識別需要技術選型的 Story → 草擬 ADR
  ↓
 你：Review → 拍板
+ ↓
+Discovery Retro：記錄學到什麼、哪些假設待驗證 → 更新 Retrospective_Log
 ```
 
 ### 4. 跑 Sprint

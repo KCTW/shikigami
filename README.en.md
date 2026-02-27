@@ -77,6 +77,8 @@ Direction confirmed → formally produce ROADMAP.md + PRODUCT_BACKLOG.md
 Architect: Identifies Stories needing tech decisions → drafts ADRs
  ↓
 You: Review → approve
+ ↓
+Discovery Retro: Record lessons learned, assumptions to validate → update Retrospective_Log
 ```
 
 ### 4. Run Sprints
