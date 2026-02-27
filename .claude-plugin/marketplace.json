@@ -1,0 +1,18 @@
+{
+  "name": "shikigami",
+  "description": "AI Agent Scrum Team plugin marketplace",
+  "owner": {
+    "name": "KCTW"
+  },
+  "plugins": [
+    {
+      "name": "shikigami",
+      "description": "AI Agent Scrum Team：7 個專業角色 × Subagent 驅動 × Scrum 流程自動化",
+      "version": "1.0.0",
+      "source": "./",
+      "author": {
+        "name": "KCTW"
+      }
+    }
+  ]
+}
