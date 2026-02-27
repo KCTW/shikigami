@@ -29,7 +29,7 @@ Shikigami defines these 6 roles as Claude Code sub-agents, triggered automatical
 ### Building a New Product from Scratch
 Have an idea but no team? AI team runs Discovery → Backlog → Sprint, delivering demo-ready results every week.
 
-### Taking Over an Existing Platform
+### Inheriting a Legacy Codebase
 Inherited a system with no docs and no tests? Architect maps the architecture, QA adds tests, SRE sets up monitoring, SecOps runs scans — Sprint by Sprint, paying down tech debt.
 
 ### Solo Company / Side Project
