@@ -1,5 +1,10 @@
 # Shikigami — Your AI Engineering Team
 
+![Version](https://img.shields.io/badge/Version-0.3.0-success)
+![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-blue)
+![Roles](https://img.shields.io/badge/Roles-6_AI_Teammates-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 > Let Claude Code do more than write code — it also makes architecture decisions, reviews code, and guards security.
 
 You're building alone. No one reviews your code, architecture decisions are gut calls, and security issues don't surface until production.
@@ -16,7 +21,7 @@ You develop normally in Claude Code. Shikigami automatically activates the right
 |---|---|---|
 | You want to build a new feature | **PO** | Clarifies requirements, prioritizes backlog |
 | You need a tech decision | **Architect** | Writes ADRs (Architecture Decision Records) with options and rationale |
-| Code is written | **QA** | Reviews automatically — finds bugs, checks test coverage |
+| Code is written | **QA** | Reviews automatically — finds bugs, checks test coverage, challenges architecture decisions |
 | Time to deploy | **SRE** | Checks deployment config, sets up monitoring |
 | External input handling | **SecOps** | Scans for security vulnerabilities (OWASP Top 10) |
 | Team disagreement | **Stakeholder** | Final arbitration, breaks deadlocks |
@@ -27,12 +32,17 @@ You develop normally in Claude Code. Shikigami automatically activates the right
 
 ## Real-World Results
 
-This framework was extracted from [seven-bala](https://github.com/KCTW/seven-bala) — a smart coffee pickup service. From MVP to v1.3, 6 Sprints, 12 User Stories, fully developed by an autonomous AI team.
+This framework has been validated in two projects:
 
-Artifacts produced:
-- 12 Architecture Decision Records (ADRs) — every tech choice documented, not left to memory
+**[seven-bala](https://github.com/KCTW/seven-bala)** (origin) — A smart coffee pickup service. From MVP to v1.3, 6 Sprints, 12 User Stories, fully developed by an autonomous AI team.
+
+**[Onmyodo](https://github.com/KCTW/onmyodo)** (validation) — An AI Scrum team SaaS platform. 2 Sprints in POC phase, validated multi-role orchestration (PO → Architect → QA relay), 5/5 test pass rate at 100%. Also contributed improvements back to the framework (Retro verification, TDD exemption, Decision Challenge).
+
+Combined artifacts:
+- 15+ Architecture Decision Records (ADRs) — every tech choice documented, not left to memory
 - Full test coverage — QA gatekeeps quality, no tests = not done
 - Sprint Retrospective logs — every mistake recorded, never repeated
+- **Decision Challenge** — QA doubles as Devil's Advocate, challenging Architect's key decisions
 
 ---
 
@@ -62,7 +72,10 @@ cp -r docs/team/ your-project/docs/team/
 cp -r .claude/agents/ your-project/.claude/agents/
 
 # Copy templates
-cp -r templates/ your-project/docs/
+cp -r templates/ your-project/templates/
+
+# Copy automation scripts
+cp -r scripts/ your-project/scripts/
 ```
 
 ### 2. Customize
@@ -136,10 +149,16 @@ docs/team/                     # Role definitions & process (tool-agnostic)
 └── stakeholder.md
 
 templates/                     # Ready-to-use templates
+├── PLAYBOOK.md               # Tactical manual (red lines, workflow, team rules)
 ├── PROJECT_BOARD.md
 ├── PRODUCT_BACKLOG.md
 ├── ROADMAP.md
 └── sprint_template.md
+
+scripts/                       # Automation scripts
+├── install_hooks.sh           # Git hooks installer
+├── validate_commit.sh         # Pre-commit quality gate
+└── preflight_check.sh         # Environment validation (pre-Agent)
 ```
 
 **Two-layer design**: Layer 1 (`docs/team/`) is tool-agnostic — switch to any AI tool and it still works. Layer 2 (`.claude/agents/`) is Claude Code-specific.

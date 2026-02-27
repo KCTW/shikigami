@@ -1,5 +1,10 @@
 # 式神 Shikigami — 你的 AI 工程團隊
 
+![Version](https://img.shields.io/badge/Version-0.3.0-success)
+![Claude Code](https://img.shields.io/badge/Claude_Code-Compatible-blue)
+![Roles](https://img.shields.io/badge/Roles-6_AI_Teammates-purple)
+![License](https://img.shields.io/badge/License-MIT-green)
+
 > 讓 Claude Code 不只幫你寫程式，還幫你做架構決策、審代碼、顧安全。
 
 你一個人開發，寫完的代碼沒人 review，架構決策靠直覺，安全問題等上線才發現。
@@ -16,7 +21,7 @@ Shikigami 給你 6 個 AI 隊友，各有專業分工，而且**會互相審查*
 |---|---|---|
 | 你想開發新功能 | **PO** | 幫你釐清需求、排優先級 |
 | 要做技術選型 | **Architect** | 寫 ADR（架構決策紀錄），給你選擇和理由 |
-| 代碼寫完了 | **QA** | 自動審查，找 bug、查測試覆蓋 |
+| 代碼寫完了 | **QA** | 自動審查，找 bug、查測試覆蓋、挑戰架構決策 |
 | 要部署上線 | **SRE** | 檢查部署設定、建監控 |
 | 有外部輸入處理 | **SecOps** | 掃描安全漏洞（OWASP Top 10） |
 | 團隊意見分歧 | **Stakeholder** | 最終仲裁，打破僵局 |
@@ -27,12 +32,17 @@ Shikigami 給你 6 個 AI 隊友，各有專業分工，而且**會互相審查*
 
 ## 實際效果
 
-本框架從 [小七巴拉](https://github.com/KCTW/seven-bala) 專案中提煉 — 一個智慧咖啡快取服務。從 MVP 到 v1.3，6 個 Sprint，12 個 User Stories，全程由 AI 團隊自治開發。
+本框架已在兩個專案中驗證：
 
-產出物：
-- 12 份架構決策紀錄（ADR）— 每個技術選擇都有文件，不靠記憶
+**[小七巴拉](https://github.com/KCTW/seven-bala)**（框架起源）— 智慧咖啡快取服務。從 MVP 到 v1.3，6 個 Sprint，12 個 User Stories，全程由 AI 團隊自治開發。
+
+**[Onmyodo](https://github.com/KCTW/onmyodo)**（框架驗證）— AI Scrum 團隊 SaaS 平台。POC 階段 2 個 Sprint，驗證了多角色編排（PO → Architect → QA 接力），5/5 測試通過率 100%。過程中也反向回饋改進了框架本身（Retro 驗收機制、TDD 豁免條款、Decision Challenge）。
+
+共同產出：
+- 15+ 份架構決策紀錄（ADR）— 每個技術選擇都有文件，不靠記憶
 - 完整的測試覆蓋 — QA 把關，沒測試不算完成
 - Sprint 回顧紀錄 — 每次犯的錯都記下來，不會重複踩坑
+- **Decision Challenge** — QA 兼任 Devil's Advocate，挑戰 Architect 最重要的決策
 
 ---
 
@@ -62,7 +72,10 @@ cp -r docs/team/ your-project/docs/team/
 cp -r .claude/agents/ your-project/.claude/agents/
 
 # 複製模板
-cp -r templates/ your-project/docs/
+cp -r templates/ your-project/templates/
+
+# 複製自動化腳本
+cp -r scripts/ your-project/scripts/
 ```
 
 ### 2. 設定你的專案
@@ -136,10 +149,16 @@ docs/team/                     # 角色定義與流程（換工具也能用）
 └── stakeholder.md
 
 templates/                     # 可直接複製的模板
+├── PLAYBOOK.md               # 戰術手冊（紅線、工作流、團隊守則）
 ├── PROJECT_BOARD.md
 ├── PRODUCT_BACKLOG.md
 ├── ROADMAP.md
 └── sprint_template.md
+
+scripts/                       # 自動化腳本
+├── install_hooks.sh           # Git hooks 安裝
+├── validate_commit.sh         # Pre-commit 品質守門
+└── preflight_check.sh         # 環境驗證（Agent 執行前）
 ```
 
 **雙層設計**：第一層（`docs/team/`）跟工具無關，換到其他 AI 工具也能用。第二層（`.claude/agents/`）是 Claude Code 專用。
