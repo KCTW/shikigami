@@ -68,9 +68,11 @@ cp -r templates/ your-project/docs/
 ```
 你：「我想做一個 xxx 產品，目標使用者是 xxx」
  ↓
-PO：發散討論 → 草擬 ROADMAP.md + PRODUCT_BACKLOG.md
+PO：發散探索 → 產出 DISCOVERY.md（中間產物，來回迭代）
  ↓
-你：Review → 確認方向或調整
+你 + PO：對話式迭代 → 逐步收斂方向
+ ↓
+方向確認後 → 正式產出 ROADMAP.md + PRODUCT_BACKLOG.md
  ↓
 Architect：識別需要技術選型的 Story → 草擬 ADR
  ↓

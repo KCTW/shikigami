@@ -68,9 +68,11 @@ Tell Claude your product vision, let PO run Discovery:
 ```
 You: "I want to build xxx, target users are xxx"
  ↓
-PO: Divergent discussion → drafts ROADMAP.md + PRODUCT_BACKLOG.md
+PO: Divergent exploration → produces DISCOVERY.md (living document, iterates)
  ↓
-You: Review → confirm direction or adjust
+You + PO: Conversational iteration → gradually converge on direction
+ ↓
+Direction confirmed → formally produce ROADMAP.md + PRODUCT_BACKLOG.md
  ↓
 Architect: Identifies Stories needing tech decisions → drafts ADRs
  ↓
