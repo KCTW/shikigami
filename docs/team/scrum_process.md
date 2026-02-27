@@ -106,7 +106,13 @@ Review 產出：
 
 Retro 產出：
 - 在 `docs/km/Retrospective_Log.md` 新增本 Sprint 記錄（Good / Problem / Action）
-- **強制規則**：上一個 Sprint 的 Action Items 必須在本 Sprint 驗收
+- **強制規則**：上一個 Sprint 的 Action Items 必須在下一個 Sprint 驗收
+
+Action Items 驗收機制：
+1. Retro 產出的每個 Action 必須有 **Owner** 和 **驗收方式**
+2. Sprint Planning 時，自動將上個 Sprint 的 Action Items 列入 Backlog（Task ID 建議 `TXX-R1`, `TXX-R2`...）
+3. Sprint Review 時逐項檢查：有結論（決議/程式碼/報告）= 關閉，無結論 = 帶入下個 Sprint 並標注「延遲」
+4. 連續兩個 Sprint 未關閉的 Action 升級至 Stakeholder
 
 ---
 

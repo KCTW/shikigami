@@ -10,6 +10,7 @@
 1. **KM (Knowledge Management) 知識建檔**：定義領域邊界，消除 AI 幻覺。
 2. **SDD (System Design) 系統設計**：先設計架構與介面，嚴禁邊做邊改。
 3. **TDD (Test-Driven Development) 測試驅動**：實作前先寫測試案例，保證品質。
+   - **豁免條款**：POC / Spike 性質的任務可豁免 TDD，但必須同時滿足：(1) Sprint 文件明確標注為 Spike、(2) Commit 含 `[SPIKE]` tag、(3) 程式碼不直接進入正式產品。豁免不等於永久免測 — 進入正式開發時必須補上測試。
 4. **Sprint 價值衝刺模式**：以「價值交付」為單位。結案 DoD 必須包含代碼測試、文檔同步與代碼推送。
 
 ### 議題處理流程 (Issue-to-Resolution)
