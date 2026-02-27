@@ -149,7 +149,7 @@ templates/                 # 可直接複製使用的模板
 
 ## 實際案例
 
-本框架從 [小七巴拉](https://github.com/KCTW/prj-ucpdemo) 專案中提煉 — 一個 UCP 驅動的智慧咖啡快取服務。該專案使用本框架從 v1.0 MVP 推進至 v1.3，6 個 Sprint，12 個 User Stories，全程由 AI 團隊自治開發。
+本框架從 [小七巴拉](https://github.com/KCTW/seven-bala) 專案中提煉 — 一個 UCP 驅動的智慧咖啡快取服務。該專案使用本框架從 v1.0 MVP 推進至 v1.3，6 個 Sprint，12 個 User Stories，全程由 AI 團隊自治開發。
 
 ---
 
