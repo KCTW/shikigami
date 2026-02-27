@@ -26,16 +26,16 @@ Shikigami defines these 6 roles as Claude Code sub-agents, triggered automatical
 
 ## Use Cases
 
-### Building a New Product from Scratch
+### 1. Building a New Product from Scratch
 Have an idea but no team? AI team runs Discovery → Backlog → Sprint, delivering demo-ready results every week.
 
-### Inheriting a Legacy Codebase
+### 2. Inheriting a Legacy Codebase
 Inherited a system with no docs and no tests? Architect maps the architecture, QA adds tests, SRE sets up monitoring, SecOps runs scans — Sprint by Sprint, paying down tech debt.
 
-### Solo Company / Side Project
+### 3. Solo Company / Side Project
 Want engineering discipline without the headcount. The AI team runs ceremonies, all decisions are recorded in ADRs, fully traceable at any time.
 
-### Teaching & Research
+### 4. Teaching & Research
 Demonstrate AI agents collaborating on real software engineering. Each role is grounded in industry standards (ISTQB, OWASP, Google SRE Book, RICE).
 
 ---

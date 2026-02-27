@@ -26,16 +26,16 @@ Shikigami 把這 6 個角色定義成 Claude Code sub-agents，按觸發條件�
 
 ## 適用場景
 
-### 從零開發新產品
+### 1. 從零開發新產品
 有想法沒團隊，需要快速從 0 到 MVP。AI 團隊跑 Discovery → Backlog → Sprint，每週交付可 Demo 的成果。
 
-### 接手既有平台
+### 2. 接手既有平台
 繼承沒有文件、沒有測試的舊系統。Architect 盤架構、QA 補測試、SRE 建監控、SecOps 做掃描，Sprint 逐步還技術債。
 
-### 一人公司 / 側專案
+### 3. 一人公司 / 側專案
 想維持工程紀律但沒人力。AI 團隊執行儀式，所有決策有 ADR 紀錄，隨時可回溯。
 
-### 教學與研究
+### 4. 教學與研究
 展示 AI agents 協作完成真實軟體工程。每個角色有業界標準依據（ISTQB、OWASP、Google SRE Book、RICE）。
 
 ---
