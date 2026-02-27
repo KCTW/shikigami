@@ -1,0 +1,81 @@
+---
+name: sprint-planning
+description: "Use when starting a new sprint, selecting stories from backlog, or beginning sprint planning ceremony"
+---
+
+# Sprint Planning — Sprint 週期起點
+
+## 1. 概述
+
+Sprint Planning 是每個 Sprint 週期的起點儀式。主要由 **Product Owner (PO)** 主持，**Architect** 與 **QA Engineer** 共同參與，確保選入 Sprint 的 Stories 在需求、技術可行性、驗收標準三方面皆已就緒。
+
+**目標**：從 Product Backlog 頂部選取符合 Sprint Goal 的 Stories，經技術評估與驗收確認後，正式納入 Sprint Backlog。
+
+---
+
+## 2. 流程 Checklist
+
+以下步驟必須逐項建立 task 完成，不可跳過：
+
+- [ ] **PO subagent** 讀取 `docs/prd/PRODUCT_BACKLOG.md` 與 `docs/PROJECT_BOARD.md`，掌握目前 Backlog 狀態與專案進度
+- [ ] **PO subagent** 從 Backlog 頂部（依優先級排序）選取符合 Sprint Goal 的 Stories
+- [ ] **檢查選入的 Story 是否標注「需要 ADR」** — 若標注需要 ADR，則該 ADR 必須已建立且狀態為 Accepted，方可進入 Sprint
+- [ ] **Architect subagent** 評估每個 Story 的技術工時（T-shirt size: S / M / L）
+- [ ] **QA subagent** 確認每個 Story 的驗收標準（Acceptance Criteria）可被測試
+- [ ] 上個 Sprint 的 **Retro Action Items** 自動列入 Backlog（若有未完成項目）
+- [ ] **PO subagent** 建立 `docs/sprints/sprint_N.md`（N 為遞增的 Sprint 編號）
+- [ ] 更新 `docs/PROJECT_BOARD.md`，反映新 Sprint 的 Stories 配置
+
+---
+
+## 3. Hard Gate
+
+<HARD-GATE>
+沒有 ADR 的技術選型 Story 不能進 Sprint。
+</HARD-GATE>
+
+**說明**：任何涉及技術選型的 Story（例如選擇框架、資料庫、第三方服務等），必須先透過 `architecture-decision` Skill 完成 ADR（Architecture Decision Record）並獲得 Accepted 狀態。未通過此門禁的 Story 將被退回 Backlog，待 ADR 完成後方可在下次 Sprint Planning 重新選入。
+
+---
+
+## 4. Sprint 週期
+
+**週期長度：1 週**
+
+選擇 1 週的理由：
+
+- **小團隊**：AI Agent Scrum Team 成員精簡，1 週足以完成一個有意義的增量
+- **MVP 階段**：產品尚在早期驗證階段，需要快速迭代
+- **高頻反饋**：縮短反饋迴圈，每週皆有機會調整方向
+
+---
+
+## 5. 產出文件
+
+Sprint Planning 完成後，必須產出或更新以下文件：
+
+| 文件 | 說明 |
+|------|------|
+| `docs/sprints/sprint_N.md` | 新建。包含 Sprint Goal、選入的 Stories 清單、T-shirt size 估算、驗收標準摘要 |
+| `docs/PROJECT_BOARD.md` | 更新。反映新 Sprint 的 Stories 配置，將選入的 Stories 移至「Sprint Backlog」欄位 |
+| `docs/prd/PRODUCT_BACKLOG.md` | 更新。已選入的 Story 標記狀態為 `In Sprint` 或對應的狀態標記 |
+
+---
+
+## 6. Subagent 派遣順序
+
+Sprint Planning 的 Subagent 調度遵循以下固定順序：
+
+```
+1. PO       → 分析 Backlog、選取 Stories、定義 Sprint Goal
+2. Architect → 技術評估、ADR 檢查
+3. QA       → 驗收標準確認
+4. PO       → 產出 Sprint 文件
+```
+
+**派遣說明**：
+
+1. **PO（第一輪）**：讀取 Backlog 與 Project Board，根據優先級與 Sprint Goal 初步選取 Stories。此階段 PO 需明確定義本次 Sprint 要達成的目標。
+2. **Architect**：對 PO 選取的每個 Story 進行技術可行性評估，給出 T-shirt size 估算（S/M/L），並檢查需要 ADR 的 Story 是否已有對應的 Accepted ADR。若發現 Hard Gate 問題，該 Story 退回 Backlog。
+3. **QA**：逐一確認剩餘 Stories 的 Acceptance Criteria 是否明確且可被自動化測試驗證。若驗收標準模糊，退回 PO 補充後重新評估。
+4. **PO（第二輪）**：根據 Architect 與 QA 的回饋，最終確認 Sprint Backlog，建立 `docs/sprints/sprint_N.md`，並更新 `docs/PROJECT_BOARD.md` 與 `docs/prd/PRODUCT_BACKLOG.md`。
