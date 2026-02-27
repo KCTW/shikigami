@@ -92,7 +92,9 @@ Main agent writes tests → implements (TDD)
  ↓
 QA / SRE / SecOps review as needed
  ↓
-Sprint Review (acceptance + retrospective → update Retrospective_Log)
+Sprint Review (acceptance)
+ ↓
+Sprint Retro → record lessons, update Retrospective_Log
  ↓
 Next Planning cycle
 ```

@@ -92,7 +92,9 @@ Architect 產出 SDD（軟體設計文件）
  ↓
 QA / SRE / SecOps 按需 review
  ↓
-Sprint Review（驗收 + 回顧 → 更新 Retrospective_Log）
+Sprint Review（驗收）
+ ↓
+Sprint Retro → 記錄教訓、更新 Retrospective_Log
  ↓
 下一輪 Planning
 ```
