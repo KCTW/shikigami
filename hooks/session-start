@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ---------- Determine plugin root from script location ----------
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+
+# ---------- Read scrum-master skill content ----------
+SKILL_FILE="${PLUGIN_ROOT}/skills/scrum-master/SKILL.md"
+
+if [[ ! -f "$SKILL_FILE" ]]; then
+  echo '{}'
+  exit 0
+fi
+
+SKILL_CONTENT="$(cat "$SKILL_FILE")"
+
+# ---------- JSON-escape helper ----------
+escape_for_json() {
+  local s="$1"
+  s="${s//\\/\\\\}"
+  s="${s//\"/\\\"}"
+  s="${s//$'\n'/\\n}"
+  s="${s//$'\r'/\\r}"
+  s="${s//$'\t'/\\t}"
+  printf '%s' "$s"
+}
+
+ESCAPED="$(escape_for_json "$SKILL_CONTENT")"
+
+# ---------- Build the context message ----------
+PREFIX="You have shikigami superpowers.\\n\\n**Below is the full content of your 'shikigami:scrum-master' skill - your AI Agent Scrum Team controller. For all other skills, use the 'Skill' tool:**"
+CONTEXT="<EXTREMELY_IMPORTANT>\\n${PREFIX}\\n\\n${ESCAPED}\\n</EXTREMELY_IMPORTANT>"
+
+# ---------- Output JSON (dual fields for compatibility) ----------
+printf '{"additional_context":"%s","hookSpecificOutput":{"additionalContext":"%s"}}' \
+  "$CONTEXT" "$CONTEXT"
