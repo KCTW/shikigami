@@ -42,6 +42,11 @@ Shikigami 把這 6 個角色定義成 Claude Code sub-agents，按觸發條件�
 
 ## 快速開始
 
+### 前提
+
+- 已安裝 [Claude Code](https://docs.anthropic.com/en/docs/claude-code)（Anthropic 官方 CLI）
+- 專案已有 Git repo
+
 ### 1. 複製框架
 
 ```bash

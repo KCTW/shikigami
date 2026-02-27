@@ -42,6 +42,11 @@ Demonstrate AI agents collaborating on real software engineering. Each role is g
 
 ## Quick Start
 
+### Prerequisites
+
+- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) installed (Anthropic's official CLI)
+- A Git repo for your project
+
 ### 1. Copy the Framework
 
 ```bash
