@@ -68,9 +68,13 @@ Tell Claude your product vision, let PO run Discovery:
 ```
 You: "I want to build xxx, target users are xxx"
  ↓
-PO: Divergent discussion → produces ROADMAP.md + PRODUCT_BACKLOG.md
+PO: Divergent discussion → drafts ROADMAP.md + PRODUCT_BACKLOG.md
  ↓
-Architect: Identifies Stories needing tech decisions → produces ADRs
+You: Review → confirm direction or adjust
+ ↓
+Architect: Identifies Stories needing tech decisions → drafts ADRs
+ ↓
+You: Review → approve
 ```
 
 ### 4. Run Sprints

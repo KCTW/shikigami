@@ -68,9 +68,13 @@ cp -r templates/ your-project/docs/
 ```
 你：「我想做一個 xxx 產品，目標使用者是 xxx」
  ↓
-PO：發散討論 → 產出 ROADMAP.md + PRODUCT_BACKLOG.md
+PO：發散討論 → 草擬 ROADMAP.md + PRODUCT_BACKLOG.md
  ↓
-Architect：識別需要技術選型的 Story → 產出 ADR
+你：Review → 確認方向或調整
+ ↓
+Architect：識別需要技術選型的 Story → 草擬 ADR
+ ↓
+你：Review → 拍板
 ```
 
 ### 4. 跑 Sprint
