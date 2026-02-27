@@ -18,6 +18,8 @@
 - **SecOps** 幫你做安全審查
 - **Stakeholder** 幫你在團隊卡住時做最終仲裁
 
+更重要的是，它們會**彼此 review** — SRE 審 Architect 的 ADR、QA 審主 agent 的代碼、SecOps 審外部輸入處理。不是 6 個獨立助手，而是一張互相制衡的治理網。
+
 Shikigami 把這 6 個角色定義成 Claude Code sub-agents，按觸發條件自動啟動。
 
 ---
@@ -40,7 +42,7 @@ Shikigami 把這 6 個角色定義成 Claude Code sub-agents，按觸發條件�
 
 ## 快速開始
 
-### 1. 複製框架到你的專案
+### 1. 複製框架
 
 ```bash
 # 複製角色定義與流程文件
@@ -53,15 +55,46 @@ cp -r .claude/agents/ your-project/.claude/agents/
 cp -r templates/ your-project/docs/
 ```
 
-### 2. 設定 CLAUDE.md
+### 2. 客製化
 
-把 `CLAUDE.md.template` 複製到你的專案根目錄，改名為 `CLAUDE.md`，填入你的專案資訊。
+- 把 `CLAUDE.md.template` 複製到專案根目錄，改名 `CLAUDE.md`，填入專案資訊
+- 編輯 `.claude/agents/*.md` 裡的 `## 專案特定規則`，填入你的技術棧、檔案路徑、業務規則
+- 根據專案需要調整 `docs/team/RACI.md` 的決策權分配
 
-### 3. 開始第一個 Sprint
+### 3. Product Discovery
+
+告訴 Claude 你的產品願景，讓 PO 跑 Discovery：
 
 ```
-你（給方向）→ PO（Discovery + Backlog）→ Architect（ADR）→ Sprint Planning → 開工
+你：「我想做一個 xxx 產品，目標使用者是 xxx」
+ ↓
+PO：發散討論 → 產出 ROADMAP.md + PRODUCT_BACKLOG.md
+ ↓
+Architect：識別需要技術選型的 Story → 產出 ADR
 ```
+
+### 4. 跑 Sprint
+
+```
+Sprint Planning（選取 Story）
+ ↓
+Architect 產出 SDD（軟體設計文件）
+ ↓
+主 agent 依 SDD 寫測試 → 實作（TDD）
+ ↓
+QA / SRE / SecOps 按需 review
+ ↓
+Sprint Review（驗收 + 回顧 → 更新 Retrospective_Log）
+ ↓
+下一輪 Planning
+```
+
+每個 Sprint 的工作安排：
+- **Planning**：PO 從 Backlog 選 Story 進 Sprint，確認有 ADR（SRE 已 review）才能進
+- **設計**：Architect 為 Story 產出 SDD（設計規格），主 agent 依 SDD 執行
+- **執行**：SDD → 寫測試 → 實作（TDD），QA 審代碼、SecOps 審安全
+- **Review**：對照 DoD 驗收，記錄教訓到 Retrospective Log
+- 詳細流程見 [scrum_process.md](docs/team/scrum_process.md)
 
 ---
 
@@ -108,25 +141,72 @@ templates/                 # 可直接複製使用的模板
 1. **自治優先** — 團隊自行閉環，Stakeholder 只管策略轉向和升級僵局
 2. **事件驅動** — 角色按觸發條件啟動，不是每個任務都叫滿 6 個人
 3. **文件即治理** — 所有決策留痕（ADR、SDD、Retro Log），不靠口頭共識
-4. **標準術語** — 保留 Scrum 標準名稱，人類接手時不用重新學
-5. **務實簡化** — 每個儀式標注「實際執行」方式，AI 看得懂、人也看得懂
-
----
-
-## 完整流程
-
-```
-Discovery（發散）→ Refinement（收斂）→ Planning（選取）→ 執行 → Review
-   產出 Backlog      整理 Backlog       選進 Sprint            驗收 + 回顧
-```
-
-詳見 [scrum_process.md](docs/team/scrum_process.md)
+4. **測試先行** — SDD → 寫測試 → 實作（TDD），沒有設計文件不開工，沒有測試不算完成
+5. **標準術語** — 保留 Scrum 標準名稱，人類接手時不用重新學
+6. **務實簡化** — 每個儀式標注「實際執行」方式，AI 看得懂、人也看得懂
 
 ---
 
 ## 實際案例
 
 本框架從 [小七巴拉](https://github.com/KCTW/prj-ucpdemo) 專案中提煉 — 一個 UCP 驅動的智慧咖啡快取服務。該專案使用本框架從 v1.0 MVP 推進至 v1.3，6 個 Sprint，12 個 User Stories，全程由 AI 團隊自治開發。
+
+---
+
+## FAQ
+
+<details>
+<summary><b>沒有前後端工程師？誰來寫程式？</b></summary>
+<br>
+
+**主 agent 就是開發者。** 6 個角色都是治理角色，不寫程式。
+
+| 角色 | 身份 | 做什麼 |
+|---|---|---|
+| 你（人類） | 陰陽師 | 給方向、Review |
+| 主 agent | 本體 | 日常開發、寫程式、跑測試 |
+| 6 個 sub-agents | 式神 | 需要專業判斷時才召喚 |
+
+這是刻意的設計：
+- **主 agent 已經能寫程式** — 再開一個 Developer sub-agent 等於委派給分身，沒有意義
+- **6 個角色的價值是「視角切換」** — 同一個 LLM 用不同 system prompt 提供主 agent 平時不會想到的觀點
+- **不拆前後端** — AI agent 沒有人類的技能分工限制，拆開反而增加溝通成本
+
+> Shikigami 不是完整的開發團隊框架，而是**開發者的治理護衛**。
+> 主角負責所有開發工作，式神們負責確保品質、安全、架構、需求不跑偏。
+
+</details>
+
+<details>
+<summary><b>可以加自訂角色嗎？</b></summary>
+<br>
+
+可以。在 `docs/team/roles/` 新增角色定義，再到 `.claude/agents/` 新增對應 sub-agent 指令即可。框架本身不限定角色數量。
+
+</details>
+
+<details>
+<summary><b>AI 自己寫、自己 review，有效嗎？</b></summary>
+<br>
+
+有效，但有限度。QA sub-agent 用不同 system prompt 切換視角（專注找 bug、安全漏洞、測試覆蓋），能抓到主 agent 開發時的盲點。本質上是**同一個 LLM 的多角度自審**，比沒有 review 好，但不等於獨立的人類 review。
+
+務實的做法：
+- **日常開發**：靠 QA sub-agent 自審 + 自動化測試守底線
+- **重要節點**：人類在 Sprint Review 時看結果、看 PR，不用逐行審
+- **底線**：測試通過 + QA 無重大發現 = 可合併，人類有空再回頭看
+
+> 這個框架的前提就是：人類沒時間事事過目，所以才需要式神。
+
+</details>
+
+<details>
+<summary><b>不用 Claude Code 能用嗎？</b></summary>
+<br>
+
+第一層（`docs/team/`）是工具無關的 — 角色定義、RACI、流程可以套用到任何 AI 協作工具。第二層（`.claude/agents/`）是 Claude Code 專用，換工具需要重寫這層。
+
+</details>
 
 ---
 

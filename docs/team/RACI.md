@@ -9,7 +9,7 @@
 | 需求定義 / User Story | **A** | C | C | I | I | I |
 | 優先級排序 / Sprint Goal | **A** | C | I | I | I | I |
 | 架構決策 / SDD 變更 | C | **A** | I | C | C | I |
-| 技術選型 / ADR | C | **A** | I | C | C | I |
+| 技術選型 / ADR | C | **A** | I | **R** | C | I |
 | 功能實作 | I | C | I | I | I | — |
 | 代碼審查 | I | C | **A** | I | C | — |
 | 測試策略與執行 | I | I | **A** | I | I | — |

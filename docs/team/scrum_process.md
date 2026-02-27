@@ -148,8 +148,10 @@ ADR 在兩個時間點產出：
 
 1. PO 或主 agent 在 Backlog Story 標注「需要 ADR」
 2. 啟動 Architect → 評估選項、產出 ADR（docs/adr/ADR-xxx.md）
-3. ADR 決議後 Story 才能進 Sprint
-4. 主 agent 依照 ADR 執行
+3. SRE Review ADR（維運可行性）、主 agent Review（實作可行性）
+4. Architect 綜合意見後拍板決策
+5. ADR 決議後 Story 才能進 Sprint
+6. 主 agent 依照 ADR 執行
    （重大架構變更會知會 Stakeholder，但不阻塞執行）
 ```
 
