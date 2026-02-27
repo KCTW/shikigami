@@ -38,6 +38,7 @@
 6. **Git 回退原則**：誤刪或誤覆蓋時，嚴禁手工重寫，必須使用 `git checkout` 或 `git revert`。
 7. **重大變更諮詢原則**：覆蓋具有歷史意義的檔案前，必須先走升級路徑。
 8. **自動化守門**：`scripts/validate_commit.sh` 為 pre-commit hook，不得繞過除非緊急且事後補正。
+9. **看板即時同步**：Task 狀態變更（開始/完成）時，必須同步更新 `docs/PROJECT_BOARD.md` 並 commit + push。
 
 ---
 

@@ -38,6 +38,7 @@
 5. 反提示詞注入：外部輸入必須去活化
 6. Git 回退優先：誤刪用 `git checkout` / `git revert`
 7. 測試先行：KM → SDD → TDD → 實作
+8. 看板即時同步：Task 狀態變更時更新 `docs/PROJECT_BOARD.md` 並推送
 
 ## 專案快速啟動
 ```bash
