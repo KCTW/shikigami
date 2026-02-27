@@ -9,7 +9,7 @@
 
 You're building alone. No one reviews your code, architecture decisions are gut calls, and security issues don't surface until production.
 
-Shikigami gives you 6 AI teammates, each with a specialty, and they **review each other's work** — not 6 chatbots answering questions independently, but a disciplined engineering team.
+Shikigami gives you 6 AI teammates, each with a specialty, and they **check and balance each other** — not 6 chatbots answering questions independently, but a disciplined engineering team.
 
 ---
 
@@ -21,12 +21,12 @@ You develop normally in Claude Code. Shikigami automatically activates the right
 |---|---|---|
 | You want to build a new feature | **PO** | Clarifies requirements, prioritizes backlog |
 | You need a tech decision | **Architect** | Writes ADRs (Architecture Decision Records) with options and rationale |
-| Code is written | **QA** | Reviews automatically — finds bugs, checks test coverage, challenges architecture decisions |
+| Design complete / code written | **QA** | Challenges architecture decisions, reviews code, checks test coverage |
 | Time to deploy | **SRE** | Checks deployment config, sets up monitoring |
 | External input handling | **SecOps** | Scans for security vulnerabilities (OWASP Top 10) |
 | Team disagreement | **Stakeholder** | Final arbitration, breaks deadlocks |
 
-**The key: they review each other.** SRE reviews Architect's ADRs, QA reviews your code, SecOps reviews external input. Not 6 standalone helpers — a governance network of checks and balances.
+**The key: they check each other.** SRE evaluates Architect's ADRs for operational feasibility, QA reviews your code and challenges architecture decisions, SecOps reviews external input. Not 6 standalone helpers — a governance network of checks and balances.
 
 ---
 
@@ -111,13 +111,13 @@ Sprint Planning (select Stories)
  ↓
 Architect produces SDD (Software Design Document)
  ↓
+QA challenges Architect's key decision (Decision Challenge)
+ ↓
 Main agent writes tests → implements (TDD)
  ↓
 QA / SRE / SecOps review as needed
  ↓
-Sprint Review (acceptance)
- ↓
-Sprint Retro → record lessons
+Sprint Review (acceptance) + Retro (record lessons)
  ↓
 Next Planning cycle
 ```
@@ -147,6 +147,8 @@ docs/team/                     # Role definitions & process (tool-agnostic)
 ├── sre.md
 ├── secops.md
 └── stakeholder.md
+
+CLAUDE.md.template             # Claude Code bootstrap config template
 
 templates/                     # Ready-to-use templates
 ├── PLAYBOOK.md               # Tactical manual (red lines, workflow, team rules)
@@ -178,7 +180,7 @@ scripts/                       # Automation scripts
 
 ## Tips & Best Practices
 
-From [Anthropic's field report](https://www.anthropic.com/engineering/claude-code-best-practices) and the seven-bala project experience.
+From [Anthropic's field report](https://www.anthropic.com/engineering/claude-code-best-practices) and hands-on experience from the seven-bala and Onmyodo projects.
 
 ### CLAUDE.md Is the Soul
 

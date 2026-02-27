@@ -9,7 +9,7 @@
 
 你一個人開發，寫完的代碼沒人 review，架構決策靠直覺，安全問題等上線才發現。
 
-Shikigami 給你 6 個 AI 隊友，各有專業分工，而且**會互相審查** — 不是 6 個各自回答問題的 chatbot，是一組有紀律的工程團隊。
+Shikigami 給你 6 個 AI 隊友，各有專業分工，而且**會互相制衡** — 不是 6 個各自回答問題的 chatbot，是一組有紀律的工程團隊。
 
 ---
 
@@ -21,12 +21,12 @@ Shikigami 給你 6 個 AI 隊友，各有專業分工，而且**會互相審查*
 |---|---|---|
 | 你想開發新功能 | **PO** | 幫你釐清需求、排優先級 |
 | 要做技術選型 | **Architect** | 寫 ADR（架構決策紀錄），給你選擇和理由 |
-| 代碼寫完了 | **QA** | 自動審查，找 bug、查測試覆蓋、挑戰架構決策 |
+| 設計完成 / 代碼寫完 | **QA** | 挑戰架構決策、審查代碼、查測試覆蓋 |
 | 要部署上線 | **SRE** | 檢查部署設定、建監控 |
 | 有外部輸入處理 | **SecOps** | 掃描安全漏洞（OWASP Top 10） |
 | 團隊意見分歧 | **Stakeholder** | 最終仲裁，打破僵局 |
 
-**重點：它們會互相 review。** SRE 審 Architect 的 ADR，QA 審你的代碼，SecOps 審外部輸入。這不是 6 個獨立助手，是一張互相制衡的治理網。
+**重點：它們會互相制衡。** SRE 從維運角度評估 Architect 的 ADR 可行性，QA 審你的代碼並挑戰架構決策，SecOps 審外部輸入。這不是 6 個獨立助手，是一張互相制衡的治理網。
 
 ---
 
@@ -111,13 +111,13 @@ Sprint Planning（選取 Story）
  ↓
 Architect 產出 SDD（設計文件）
  ↓
+QA 挑戰 Architect 關鍵決策（Decision Challenge）
+ ↓
 主 agent 依 SDD 寫測試 → 實作（TDD）
  ↓
 QA / SRE / SecOps 按需 review
  ↓
-Sprint Review（驗收）
- ↓
-Sprint Retro → 記錄教訓
+Sprint Review（驗收）+ Retro（記錄教訓）
  ↓
 下一輪 Planning
 ```
@@ -147,6 +147,8 @@ docs/team/                     # 角色定義與流程（換工具也能用）
 ├── sre.md
 ├── secops.md
 └── stakeholder.md
+
+CLAUDE.md.template             # Claude Code 啟動設定模板
 
 templates/                     # 可直接複製的模板
 ├── PLAYBOOK.md               # 戰術手冊（紅線、工作流、團隊守則）
@@ -178,7 +180,7 @@ scripts/                       # 自動化腳本
 
 ## 使用技巧
 
-來自 [Anthropic 實戰報告](https://www.anthropic.com/engineering/claude-code-best-practices)與小七巴拉專案的經驗。
+來自 [Anthropic 實戰報告](https://www.anthropic.com/engineering/claude-code-best-practices)與小七巴拉、Onmyodo 兩個專案的實戰經驗。
 
 ### CLAUDE.md 是靈魂
 
