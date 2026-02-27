@@ -1,6 +1,6 @@
 # 式神 Shikigami — Summon Your Agent Scrum Team
 
-> A governance framework that drives AI Agent collaboration with Scrum
+> A Scrum-driven governance framework for AI agent collaboration
 
 An open-source framework that makes AI agents collaborate like a real Scrum team. 6 functional roles, each with clear responsibilities. Day-to-day development runs autonomously — humans only set direction and review.
 
@@ -13,7 +13,7 @@ Like an Onmyoji summoning Shikigami — you are the Maker, they are your shadow 
 You're building alone, but you need:
 - **PO** to clarify requirements and prioritize
 - **Architect** to make tech decisions and write ADRs
-- **QA** to review code and fill testing gaps
+- **QA** to review code and write tests
 - **SRE** to handle deployment and monitoring
 - **SecOps** to run security audits
 - **Stakeholder** to break deadlocks when the team is stuck
@@ -143,7 +143,7 @@ templates/                 # Ready-to-use templates
 3. **Docs as Governance** — All decisions leave a trail (ADR, SDD, Retro Log), no verbal consensus
 4. **Test First** — SDD → write tests → implement (TDD); no design doc = don't start, no tests = not done
 5. **Standard Terminology** — Keeps Scrum standard names so humans can take over without relearning
-6. **Pragmatic Simplicity** — Every ceremony notes its "actual execution" method, readable by both AI and humans
+6. **Pragmatic Simplicity** — Every ceremony includes practical execution notes, readable by both AI and humans
 
 ---
 
@@ -213,7 +213,7 @@ This is by design:
 - **No frontend/backend split** — AI agents don't have human skill specialization limits; splitting actually increases coordination overhead
 
 > Shikigami is not a full development team framework — it's a **governance guardian for makers**.
-> The protagonist handles all development; the Shikigami ensure quality, security, architecture, and requirements stay on track.
+> The main agent handles all development; the Shikigami ensure quality, security, architecture, and requirements stay on track.
 
 </details>
 
