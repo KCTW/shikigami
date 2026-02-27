@@ -7,6 +7,7 @@
 3. 讀取 `docs/team/scrum_process.md`（Scrum 流程 + 角色觸發條件）
 4. 檢查 `docs/PROJECT_BOARD.md`（當前 Sprint 狀態）
 5. 檢查 `docs/km/Retrospective_Log.md`（歷史教訓）
+6. 確認 git hooks 已安裝（`bash scripts/install_hooks.sh`）
 
 ## 團隊架構
 本專案採用雙層治理架構：

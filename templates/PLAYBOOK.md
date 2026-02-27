@@ -37,6 +37,7 @@
 5. **全英文檔案命名**：所有檔案統一使用英文底線格式 (snake_case)。
 6. **Git 回退原則**：誤刪或誤覆蓋時，嚴禁手工重寫，必須使用 `git checkout` 或 `git revert`。
 7. **重大變更諮詢原則**：覆蓋具有歷史意義的檔案前，必須先走升級路徑。
+8. **自動化守門**：`scripts/validate_commit.sh` 為 pre-commit hook，不得繞過除非緊急且事後補正。
 
 ---
 
