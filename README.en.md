@@ -175,15 +175,18 @@ shikigami.project_level: medium
 
 This framework has been validated in the following projects:
 
-**[seven-bala](https://github.com/KCTW/seven-bala)** (origin) — A smart coffee pickup service. From MVP to v1.3, 6 Sprints, 12 User Stories, fully developed by an autonomous AI team.
+Shikigami builds itself. From Sprint 1 onward, this framework is developed by its own AI Agent Scrum Team:
 
-**[Onmyodo](https://github.com/KCTW/onmyodo)** (validation) — An AI Scrum team SaaS platform. 2 Sprints in POC phase, validated multi-role orchestration (PO → Architect → QA relay), 5/5 test pass rate at 100%. Also contributed improvements back to the framework itself.
+- **Product Discovery**: PO analyzes requirements → Architect evaluates feasibility → QA confirms acceptance criteria
+- **Sprint Execution**: Developer implements per SDD → QA dual-phase review (Spec Review + Code Quality)
+- **Architecture Decision**: Architect proposes → QA plays Devil's Advocate → ADR records the decision
+- **Sprint Review**: Auto-triggered acceptance → Retrospective logs improvements → Action Items become GitHub Issues
 
-Combined artifacts:
-- 15+ Architecture Decision Records (ADRs)
-- Full test coverage — QA gatekeeps quality, no tests = not done
-- Sprint Retrospective logs — every mistake recorded, never repeated
-- Decision Challenge — QA doubles as Devil's Advocate, challenging Architect's key decisions
+Artifacts:
+- `docs/adr/` — Architecture Decision Records (ADRs)
+- `docs/sprints/` — Sprint planning and execution records
+- `docs/km/Retrospective_Log.md` — Every mistake recorded, never repeated
+- `docs/prd/PRODUCT_BACKLOG.md` — RICE-scored prioritized Backlog
 
 ---
 

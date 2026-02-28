@@ -228,15 +228,18 @@ shikigami.project_level: medium
 
 本框架已在以下專案中驗證：
 
-**[小七巴拉 seven-bala](https://github.com/KCTW/seven-bala)**（框架起源）— 智慧咖啡快取服務。從 MVP 到 v1.3，6 個 Sprint，12 個 User Stories，全程由 AI 團隊自治開發。
+Shikigami 用自己開發自己。本框架從 Sprint 1 起即由 AI Agent Scrum Team 自治開發：
 
-**[Onmyodo](https://github.com/KCTW/onmyodo)**（框架驗證）— AI Scrum 團隊 SaaS 平台。POC 階段 2 個 Sprint，驗證了多角色編排（PO → Architect → QA 接力），5/5 測試通過率 100%。過程中也反向回饋改進了框架本身。
+- **Product Discovery**：PO 分析需求 → Architect 評估可行性 → QA 確認驗收標準
+- **Sprint Execution**：Developer 依 SDD 實作 → QA 雙階段審查（Spec Review + Code Quality）
+- **Architecture Decision**：Architect 提案 → QA 扮演 Devil's Advocate 挑戰 → ADR 記錄決策
+- **Sprint Review**：自動觸發驗收 → Retrospective 記錄改進 → Action Items 轉為 GitHub Issues
 
-共同產出：
-- 15+ 份架構決策紀錄（ADR）
-- 完整的測試覆蓋 — QA 把關，沒測試不算完成
-- Sprint 回顧紀錄 — 每次犯的錯都記下來
-- Decision Challenge — QA 兼任 Devil's Advocate，挑戰 Architect 關鍵決策
+產出：
+- `docs/adr/` — 架構決策紀錄（ADR）
+- `docs/sprints/` — Sprint 規劃與執行紀錄
+- `docs/km/Retrospective_Log.md` — 每次犯的錯都記下來，不重複犯
+- `docs/prd/PRODUCT_BACKLOG.md` — RICE 評分排序的 Backlog
 
 ---
 
