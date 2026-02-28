@@ -30,14 +30,6 @@ claude plugin install shikigami
 
 在 Cursor 的 plugin 設定中搜尋 `shikigami`，點擊安裝。
 
-### Codex
-
-參照 `.codex/INSTALL.md`
-
-### OpenCode
-
-參照 `.opencode/INSTALL.md`
-
 ---
 
 ## 7 個角色

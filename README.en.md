@@ -30,14 +30,6 @@ claude plugin install shikigami
 
 Search for `shikigami` in Cursor's plugin settings and click install.
 
-### Codex
-
-Refer to `.codex/INSTALL.md`
-
-### OpenCode
-
-Refer to `.opencode/INSTALL.md`
-
 ---
 
 ## 7 Roles
