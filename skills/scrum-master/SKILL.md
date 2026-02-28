@@ -36,6 +36,7 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 | `systematic-debugging` | Bug、測試失敗、非預期行為、錯誤排查 |
 | `git-workflow` | 建立分支隔離、開發完成合併/PR、worktree 管理 |
 | `parallel-dispatch` | 多個獨立任務需同時處理 |
+| `issue-management` | GitHub Issue 管理、分類、回覆、Issue 轉 Backlog |
 
 ---
 
@@ -78,6 +79,8 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 
 ## 5. 流程觸發規則
 
+### 5.1 意圖驅動（使用者說了什麼）
+
 根據使用者意圖，按以下決策樹觸發對應 Skill：
 
 ```
@@ -95,17 +98,59 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 ├── 分支隔離/worktree → invoke shikigami:git-workflow
 ├── 開發完成/合併/PR → invoke shikigami:git-workflow
 ├── 多個獨立任務 → invoke shikigami:parallel-dispatch
+├── Issue 管理/分類/回覆 → invoke shikigami:issue-management
+├── Issue 轉 User Story → invoke shikigami:issue-management
 └── 日常開發 → 主 Agent 直接執行（不需觸發角色）
 ```
 
+### 5.2 狀態驅動（自動觸發）
+
+以下 Skill 不需要使用者明確要求，當條件滿足時 **Scrum Master 主動觸發**：
+
+| 條件 | 自動觸發 |
+|------|----------|
+| Sprint 中所有 Story 標記完成 | `invoke shikigami:sprint-review` |
+| sprint-review 完成且 Backlog 有待選 Story | `invoke shikigami:sprint-planning`（下一個 Sprint） |
+| Story 實作完成 | `invoke shikigami:quality-gate` |
+| quality-gate 發現安全問題 | `invoke shikigami:security-review` |
+| 升級鏈走完仍無解 | `invoke shikigami:escalation` |
+
+**原則**：Scrum Master 不只是被動路由器，也是**主動的流程守門員**。當偵測到流程轉折點時，自動推進到下一個環節，不等使用者提醒。
+
 ---
 
-## 6. 自治原則
+## 6. 專案等級與自治策略
+
+專案等級決定整個框架的自治程度。可在專案的 `CLAUDE.md` 中設定：
+
+```
+shikigami.project_level: medium
+```
+
+未設定時預設為 `medium`。
+
+### 等級定義
+
+| 專案等級 | 適用場景 | 低風險操作 | 高風險操作 |
+|----------|----------|-----------|-----------|
+| **low** | 個人專案、實驗、內部工具 | 自動執行 | 自動執行，事後通知 |
+| **medium** | 一般開發專案 | 自動執行 | QA subagent 審核後自動執行 |
+| **high** | 重要產品、公開 repo、生產環境 | 自動執行 | 人工確認後執行 |
+
+### 操作風險分類
+
+| 風險等級 | 操作類型 | 判定原則 |
+|----------|----------|----------|
+| **低** | 讀取、查詢、label、assign、本地檔案編輯 | 可逆、不影響外部 |
+| **高** | 公開留言、關閉 issue、建立 issue、刪除、force push、部署 | 不可逆或影響外部可見狀態 |
+
+### 自治原則
 
 - **日常開發免啟動角色**：功能代碼撰寫、簡單 Bug 修復、文件小幅更新、測試執行——主 Agent 自行完成。
 - **需要專業判斷時**：按上方觸發規則啟動對應 Skill，派遣 Subagent 執行。
 - **團隊內部閉環**：大部分決策由團隊自行解決，不升級 Stakeholder。
 - **「沉默即同意」**：被知會（I）但未回應的決策，團隊可自行推進，不因等待回應而阻塞。
+- **不阻塞原則**：流程中避免使用 AskUserQuestion 停下來等待。決策點依專案等級自動處理，僅在 `high` 等級的高風險操作才暫停等待人工確認。
 
 ---
 

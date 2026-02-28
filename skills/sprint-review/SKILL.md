@@ -62,48 +62,69 @@ Sprint Retrospective 的目的是團隊自省，找出可改進之處並制定�
    | **Problem**（需改進的事） | 遇到的問題、瓶頸或不順暢的地方 | Story 拆分粒度太大、安全審查太晚介入 |
    | **Action**（具體改進行動） | 針對 Problem 提出的可執行改善措施 | 下 Sprint 起 Story 點數上限設為 5 |
 
-3. **每個 Action 必須有 Owner 和驗收方式**
+3. **每個 Action 建立為 GitHub Issue**
+
+   透過 `issue-management` Skill 將每個 Action Item 建立為 GitHub Issue，方便追蹤：
+
+   ```bash
+   gh issue create --title "retro: Story 拆分粒度控制在 5 點以內" \
+     --body "**來源**：Sprint N Retrospective\n**Owner**：PO\n**驗收方式**：下 Sprint Planning 時檢查" \
+     --label "retro-action"
+   ```
+
+   **命名規則**：Issue 標題以 `retro:` 前綴，統一套用 `retro-action` label。
+
+4. **同步記錄至 `docs/km/Retrospective_Log.md`**
+
+   在 Retrospective Log 中記錄 Action Items 與對應的 Issue 編號：
 
    ```markdown
    ### Action Items
 
-   | # | Action | Owner | 驗收方式 | 狀態 |
-   |---|--------|-------|----------|------|
-   | 1 | Story 拆分粒度控制在 5 點以內 | PO | 下 Sprint Planning 時檢查 | Open |
-   | 2 | 安全審查提前至設計階段 | Security Engineer | 下 Sprint 有 Security Review 紀錄 | Open |
+   | # | Action | Owner | 驗收方式 | Issue |
+   |---|--------|-------|----------|-------|
+   | 1 | Story 拆分粒度控制在 5 點以內 | PO | 下 Sprint Planning 時檢查 | #15 |
+   | 2 | 安全審查提前至設計階段 | Security Engineer | 下 Sprint 有 Security Review 紀錄 | #16 |
    ```
 
 ---
 
 ## 4. Action Items 驗收機制
 
-Action Items 是 Retrospective 的核心產出，必須有明確的追蹤與關閉機制。
+Action Items 透過 **GitHub Issues** 追蹤（`retro-action` label），具備完整的生命週期管理。
 
 ### 規則
 
-1. **自動帶入下個 Sprint**
-   - 上個 Sprint 的 Action Items 自動列入下個 Sprint Backlog
-   - 確保改進行動不會被遺忘
+1. **建立為 GitHub Issue**
+   - 每個 Action Item 透過 `issue-management` 建立為 Issue
+   - 標題格式：`retro: [行動描述]`
+   - Label：`retro-action`
+   - Body 包含：來源 Sprint、Owner、驗收方式
 
 2. **Sprint Review 時逐項檢查**
-   - 每次 Sprint Review 開始前，先檢查上個 Sprint 的 Action Items
+   - 每次 Sprint Review 開始前，列出所有 open 的 `retro-action` Issues：
+     ```bash
+     gh issue list --label "retro-action" --state open
+     ```
    - 逐項確認執行狀況
 
 3. **結論判定**
-   - **有結論** = 關閉（標記為 `Closed`，記錄結論）
-   - **無結論** = 帶入下個 Sprint，標注「延遲」（`Deferred`）
+   - **已完成** → `gh issue close` 並留言記錄結論
+   - **未完成** → 保持 open，加上 `deferred` label
 
 4. **升級機制**
-   - 連續兩個 Sprint 未關閉的 Action 自動升級至 Stakeholder
-   - Stakeholder 決定：強制執行、調整方案、或判定不再需要
+   - 連續兩個 Sprint 仍為 open 的 `retro-action` Issue 自動升級至 Stakeholder
+   - Stakeholder 決定：強制執行、調整方案、或關閉（`not planned`）
 
 ### 狀態流轉
 
 ```
-Open → Closed（已完成驗收）
-Open → Deferred（延遲一個 Sprint）
-Deferred → Closed（第二個 Sprint 完成驗收）
-Deferred → Escalated（連續兩個 Sprint 未關閉，升級至 Stakeholder）
+gh issue create (retro-action)
+  → Open
+    → gh issue close (已完成驗收)
+    → 加 deferred label（延遲一個 Sprint）
+      → gh issue close（第二個 Sprint 完成驗收）
+      → 升級至 Stakeholder（連續兩個 Sprint 未關閉）
 ```
 
 ---
@@ -129,7 +150,7 @@ Sprint Review & Retrospective 完成後，必須更新以下文件：
 - [ ] 通過驗收的 Story 已移至 `PROJECT_BOARD.md` Done 欄位
 - [ ] 未達 DoD 的 Story 已移回 Backlog 並標注原因
 - [ ] `Retrospective_Log.md` 已新增 Good / Problem / Action 記錄
-- [ ] 每個 Action Item 都有 Owner 和驗收方式
-- [ ] 上個 Sprint 的 Action Items 已逐項檢查並更新狀態
+- [ ] 每個 Action Item 已建立為 GitHub Issue（`retro-action` label）
+- [ ] 上個 Sprint 的 `retro-action` Issues 已逐項檢查並更新狀態
 - [ ] 連續兩個 Sprint 未關閉的 Action 已升級至 Stakeholder
 - [ ] `PRODUCT_BACKLOG.md` 已更新（未完成 Story 回填）
