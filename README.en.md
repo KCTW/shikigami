@@ -56,7 +56,7 @@ Refer to `.opencode/INSTALL.md`
 
 ---
 
-## Available Skills (13)
+## Available Skills (14)
 
 | Skill | Description |
 |---|---|
@@ -73,6 +73,7 @@ Refer to `.opencode/INSTALL.md`
 | **systematic-debugging** | Bug investigation, test failure analysis, systematic debugging workflow |
 | **git-workflow** | Branch isolation, worktree management, merge/PR workflow after development |
 | **parallel-dispatch** | Parallel subagent dispatching for 2+ independent tasks |
+| **issue-management** | GitHub Issue management, auto-triage, commenting, and Issue-to-Backlog sync |
 
 ---
 
@@ -83,6 +84,56 @@ Refer to `.opencode/INSTALL.md`
 | `/sprint` | Start Sprint planning |
 | `/standup` | Daily standup meeting |
 | `/review` | Sprint review |
+
+---
+
+## How to Use (Semantic Commands)
+
+No commands to memorize — **just say what you want to do** in natural language, and the Scrum Master will automatically dispatch the right roles and workflows.
+
+### Requirements & Planning
+
+| What you say | What Shikigami does |
+|---|---|
+| "I want to add a new feature..." | PO starts Product Discovery → requirement analysis → produces Backlog |
+| "Start a new Sprint" | PO selects Stories → Architect estimates effort → QA confirms AC |
+| "Change this requirement..." | PO runs Backlog Grooming → updates priorities |
+
+### Development & Implementation
+
+| What you say | What Shikigami does |
+|---|---|
+| "Implement this Story" | Developer follows TDD → QA dual-phase review |
+| "How do I fix this bug?" | Systematic debugging → form hypothesis → verify fix |
+| "Create a feature branch" | Creates Worktree isolation → baseline tests |
+| "Done, ready to merge" | Push → create PR → trigger Quality Gate |
+
+### Review & Decisions
+
+| What you say | What Shikigami does |
+|---|---|
+| "Review this code" | QA code review → quality gate check |
+| "Which architecture should we pick?" | Architect creates ADR → QA plays Devil's Advocate |
+| "Ready to deploy" | SRE deployment readiness check → environment validation |
+
+### Issue Management
+
+| What you say | What Shikigami does |
+|---|---|
+| "Handle the GitHub Issues" | Lists open issues → classifies → applies labels |
+| "Reply to issue #5" | PO drafts reply → QA reviews → publishes |
+| "Convert issue #3 to a Story" | Reads issue → converts to User Story → writes to Backlog |
+| "Close issue #7" | Comments with reason → confirms per project level → closes |
+
+### Process Control
+
+| What you say | What Shikigami does |
+|---|---|
+| "Sprint is done" | Sprint Review → Retrospective → records action items |
+| "These two problems are unrelated" | Parallel dispatch — multiple Agents work simultaneously |
+| "The team can't resolve this" | Escalates to Stakeholder for arbitration |
+
+> **Tip:** You don't need to match the exact wording above. The Scrum Master analyzes your intent and routes to the right workflow. Just say what you need.
 
 ---
 
@@ -113,11 +164,19 @@ Customize the following for your project:
 - Documentation directory structure
 - Quick start commands
 
----
+### Project Level (Autonomy Strategy)
 
-## Relationship with Superpowers
+Set the project level in `CLAUDE.md` to control the AI team's autonomy:
 
-Shikigami fully replaces Superpowers. All 13 Skills cover every core Superpowers workflow (brainstorming, TDD, systematic debugging, git worktree, parallel dispatch, etc.), plus additional capabilities Superpowers lacks: **7-role checks and balances, security review, deployment readiness, and escalation mechanisms**. You can safely remove Superpowers after installing Shikigami.
+```
+shikigami.project_level: medium
+```
+
+| Level | Use Case | Behavior |
+|-------|----------|----------|
+| **low** | Personal projects, experiments | Full autonomy, all operations auto-execute |
+| **medium** (default) | General development | Low-risk auto, high-risk auto after QA review |
+| **high** | Critical products, public repos | Low-risk auto, high-risk requires human confirmation |
 
 ---
 
@@ -134,6 +193,55 @@ Combined artifacts:
 - Full test coverage — QA gatekeeps quality, no tests = not done
 - Sprint Retrospective logs — every mistake recorded, never repeated
 - Decision Challenge — QA doubles as Devil's Advocate, challenging Architect's key decisions
+
+---
+
+## FAQ
+
+### Does Shikigami conflict with Plan Mode?
+
+**Yes.** Plan Mode is a built-in Claude Code system feature with higher priority than any plugin. When Plan Mode is active, Shikigami is "sealed" — the Scrum Master is loaded but cannot dispatch Subagents for write operations.
+
+```
+┌─────────────────────┐
+│ Claude Code System   │  ← Plan Mode lives here (highest priority)
+├─────────────────────┤
+│ Plugin Layer         │  ← Shikigami lives here
+├─────────────────────┤
+│ Execution Layer      │  ← Actual work happens here
+└─────────────────────┘
+```
+
+**Recommendation:** Pick one. If you want Shikigami's Scrum workflow, don't enter Plan Mode — just say what you want to do and let the Scrum Master orchestrate.
+
+### How do I verify Shikigami is active?
+
+After installation, start a new session and look for:
+- `shikigami:` prefixed Skills in the system prompt (e.g., `shikigami:scrum-master`)
+- Ask "Do you have shikigami superpowers?" — Claude will know if it's loaded
+- During work, you'll see Subagent dispatches (e.g., `shikigami:developer`, `shikigami:qa-engineer`)
+
+### What does Shikigami look like when it's working?
+
+| Sign | Description |
+|------|-------------|
+| Skill invocation | You see `invoke shikigami:xxx` |
+| Subagent dispatch | You see `subagent_type: shikigami:developer` etc. |
+| Scrum language | Sprint Planning, TDD cycles, Quality Gate, DoD checks |
+| Structured docs | Files appear in `docs/prd/`, `docs/adr/`, `docs/sprints/` |
+| Role checks | Developer writes → QA reviews, Architect decides → QA challenges |
+
+### Is project level `low` too risky?
+
+`low` is designed for **personal projects and experiments**. All operations auto-execute without confirmation. For public repos with external users, use `medium` (QA reviews high-risk ops) or `high` (human confirmation required).
+
+### Can I use only some features?
+
+Yes. Shikigami doesn't force you through the full Scrum workflow. You can:
+- Use only `systematic-debugging` for debugging
+- Use only `quality-gate` for code review
+- Use only `issue-management` for GitHub Issue management
+- For everyday development, the Scrum Master auto-detects no role activation is needed and just helps directly
 
 ---
 
