@@ -17,10 +17,14 @@ Shikigami is a **plugin framework** that injects 7 specialized roles (Shikigami)
 ### Claude Code
 
 ```bash
-claude plugins add shikigami
-# Or specify GitHub source
-claude plugins add github:KCTW/shikigami
+# 1. Add marketplace (first time only)
+/plugin marketplace add KCTW/shikigami
+
+# 2. Install plugin
+claude plugin install shikigami
 ```
+
+> **Note:** You must add the marketplace before installing. A new session will auto-activate after installation.
 
 ### Cursor
 
@@ -52,7 +56,7 @@ Refer to `.opencode/INSTALL.md`
 
 ---
 
-## Available Skills (10)
+## Available Skills (13)
 
 | Skill | Description |
 |---|---|
@@ -66,6 +70,9 @@ Refer to `.opencode/INSTALL.md`
 | **security-review** | External input handling, API security, config security, vulnerability assessment |
 | **deployment-readiness** | Deployment preparation, version release, environment config, production readiness |
 | **escalation** | Unresolvable team conflicts, major product pivots, escalation chain activation |
+| **systematic-debugging** | Bug investigation, test failure analysis, systematic debugging workflow |
+| **git-workflow** | Branch isolation, worktree management, merge/PR workflow after development |
+| **parallel-dispatch** | Parallel subagent dispatching for 2+ independent tasks |
 
 ---
 
@@ -110,7 +117,7 @@ Customize the following for your project:
 
 ## Relationship with Superpowers
 
-Shikigami is an independent plugin that can coexist with Superpowers. Shikigami focuses on **AI Agent Scrum Team role orchestration and process governance**, while Superpowers focuses on enhancing general capabilities of AI development tools. They do not conflict with each other.
+Shikigami fully replaces Superpowers. All 13 Skills cover every core Superpowers workflow (brainstorming, TDD, systematic debugging, git worktree, parallel dispatch, etc.), plus additional capabilities Superpowers lacks: **7-role checks and balances, security review, deployment readiness, and escalation mechanisms**. You can safely remove Superpowers after installing Shikigami.
 
 ---
 

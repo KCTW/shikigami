@@ -9,9 +9,5 @@
   "homepage": "https://github.com/KCTW/shikigami",
   "repository": "https://github.com/KCTW/shikigami",
   "license": "MIT",
-  "keywords": ["scrum", "agents", "team", "tdd", "quality", "security", "architecture"],
-  "skills": "./skills/",
-  "agents": "./agents/",
-  "commands": "./commands/",
-  "hooks": "./hooks/hooks.json"
+  "keywords": ["scrum", "agents", "team", "tdd", "quality", "security", "architecture"]
 }

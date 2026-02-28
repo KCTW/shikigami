@@ -17,10 +17,14 @@ Shikigami 是一個 **plugin 框架**，為你的 AI 開發工具注入 7 個專
 ### Claude Code
 
 ```bash
-claude plugins add shikigami
-# 或指定 GitHub 來源
-claude plugins add github:KCTW/shikigami
+# 1. 加入 marketplace（首次安裝）
+/plugin marketplace add KCTW/shikigami
+
+# 2. 安裝 plugin
+claude plugin install shikigami
 ```
+
+> **注意**：需先加入 marketplace 才能安裝。安裝後開新 session 即自動啟動。
 
 ### Cursor
 
@@ -52,7 +56,7 @@ claude plugins add github:KCTW/shikigami
 
 ---
 
-## 可用 Skills（10 個）
+## 可用 Skills（13 個）
 
 | Skill | 說明 |
 |---|---|
@@ -66,6 +70,9 @@ claude plugins add github:KCTW/shikigami
 | **security-review** | 外部輸入處理、API 安全、配置安全、漏洞評估 |
 | **deployment-readiness** | 部署準備、版本發布、環境配置、生產就緒檢查 |
 | **escalation** | 團隊衝突無法解決、重大產品轉向、升級鏈啟動 |
+| **systematic-debugging** | Bug 排查、測試失敗分析、系統化除錯流程 |
+| **git-workflow** | 分支隔離、Worktree 管理、開發完成後的合併/PR 流程 |
+| **parallel-dispatch** | 多個獨立任務的平行 Subagent 派遣 |
 
 ---
 
@@ -110,7 +117,7 @@ cp templates/CLAUDE.md.template ./CLAUDE.md
 
 ## 與 Superpowers 的關係
 
-Shikigami 是獨立的 plugin，與 Superpowers 可並存使用。Shikigami 專注於 **AI Agent Scrum Team 的角色分工與流程治理**，Superpowers 專注於增強 AI 開發工具的通用能力。兩者互不衝突。
+Shikigami 可完全取代 Superpowers。13 個 Skills 已涵蓋 Superpowers 的所有核心工作流程（brainstorming、TDD、systematic debugging、git worktree、parallel dispatch 等），並額外提供 **7 角色制衡、安全審查、部署就緒、升級機制** 等 Superpowers 沒有的功能。安裝 Shikigami 後可安全移除 Superpowers。
 
 ---
 

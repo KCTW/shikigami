@@ -33,6 +33,9 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 | `security-review` | 外部輸入處理、API 端點、安全掃描 |
 | `deployment-readiness` | 部署準備、版本發布、環境變更 |
 | `escalation` | 團隊衝突無法解決、重大方向轉變 |
+| `systematic-debugging` | Bug、測試失敗、非預期行為、錯誤排查 |
+| `git-workflow` | 建立分支隔離、開發完成合併/PR、worktree 管理 |
+| `parallel-dispatch` | 多個獨立任務需同時處理 |
 
 ---
 
@@ -88,6 +91,10 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 ├── 部署/發布 → invoke shikigami:deployment-readiness
 ├── 衝突/僵局 → invoke shikigami:escalation
 ├── Sprint 結束 → invoke shikigami:sprint-review
+├── Bug/錯誤/測試失敗 → invoke shikigami:systematic-debugging
+├── 分支隔離/worktree → invoke shikigami:git-workflow
+├── 開發完成/合併/PR → invoke shikigami:git-workflow
+├── 多個獨立任務 → invoke shikigami:parallel-dispatch
 └── 日常開發 → 主 Agent 直接執行（不需觸發角色）
 ```
 
