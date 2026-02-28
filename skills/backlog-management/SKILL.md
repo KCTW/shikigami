@@ -111,7 +111,8 @@ Backlog Management 完成後，必須產出或更新以下文件：
 
 | 文件 | 說明 |
 |------|------|
-| `docs/prd/PRODUCT_BACKLOG.md` | 核心產出。完整的 User Story 清單，含 RICE 分數、MoSCoW 標籤、Acceptance Criteria |
+| `docs/prd/PRODUCT_BACKLOG.md` | 核心產出。僅包含**待選 Stories**，含 RICE 分數、MoSCoW 標籤、Acceptance Criteria |
+| `docs/prd/BACKLOG_DONE.md` | 已完成 Stories 歸檔。按 Sprint 整理，保留完整 RICE 評分與 AC |
 | `docs/prd/ROADMAP.md` | 產品路線圖，反映里程碑規劃與 Story 的時程分配 |
 | `docs/adr/ADR-xxx.md` | 若有涉及技術選型的 Story，需透過 `architecture-decision` Skill 建立對應的 ADR |
 

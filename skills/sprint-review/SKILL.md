@@ -138,6 +138,7 @@ Sprint Review & Retrospective 完成後，必須更新以下文件：
 | `docs/PROJECT_BOARD.md` | 已完成 Story 移至 Done 欄位；更新 Sprint 統計 |
 | `docs/km/Retrospective_Log.md` | 新增本 Sprint 的 Good / Problem / Action 記錄 |
 | `docs/prd/PRODUCT_BACKLOG.md` | 未完成 Story 回填至 Backlog，標注未達標原因與重新排序 |
+| `docs/prd/BACKLOG_DONE.md` | 已完成 Story 從 Backlog 移至此處，按 Sprint 歸檔，保留完整 RICE 評分與 AC |
 
 ---
 
@@ -154,3 +155,4 @@ Sprint Review & Retrospective 完成後，必須更新以下文件：
 - [ ] 上個 Sprint 的 `retro-action` Issues 已逐項檢查並更新狀態
 - [ ] 連續兩個 Sprint 未關閉的 Action 已升級至 Stakeholder
 - [ ] `PRODUCT_BACKLOG.md` 已更新（未完成 Story 回填）
+- [ ] 已完成 Story 從 `PRODUCT_BACKLOG.md` 移至 `BACKLOG_DONE.md`，按 Sprint 歸檔
