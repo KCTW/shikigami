@@ -110,6 +110,7 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 | 條件 | 自動觸發 |
 |------|----------|
 | Sprint 中所有 Story 標記完成 | `invoke shikigami:sprint-review` |
+| sprint-review 驗收通過 | `invoke shikigami:deployment-readiness`（版本 Tag + 部署就緒） |
 | sprint-review 完成且 Backlog 有待選 Story | `invoke shikigami:sprint-planning`（下一個 Sprint） |
 | Story 實作完成 | `invoke shikigami:quality-gate` |
 | quality-gate 發現安全問題 | `invoke shikigami:security-review` |

@@ -156,3 +156,4 @@ Sprint Review & Retrospective 完成後，必須更新以下文件：
 - [ ] 連續兩個 Sprint 未關閉的 Action 已升級至 Stakeholder
 - [ ] `PRODUCT_BACKLOG.md` 已更新（未完成 Story 回填）
 - [ ] 已完成 Story 從 `PRODUCT_BACKLOG.md` 移至 `BACKLOG_DONE.md`，按 Sprint 歸檔
+- [ ] 觸發 `deployment-readiness`，由 SRE subagent 執行版本 Tag 流程（bump version + git tag）

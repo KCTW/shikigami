@@ -70,7 +70,43 @@ SRE 審查結果      Security 審查結果
 
 ---
 
-## 4. 部署 Checklist
+## 4. 版本 Tag 管理
+
+Sprint Review 驗收通過後，由 SRE subagent 負責打 tag 與更新版號。
+
+### 版號策略（Semantic Versioning）
+
+| 事件 | 版號變化 | 範例 |
+|------|----------|------|
+| Sprint Review 通過 | minor +1 | `v0.1.0` → `v0.2.0` |
+| Hotfix（Sprint 外緊急修復） | patch +1 | `v0.2.0` → `v0.2.1` |
+| 正式穩定版（外部使用者驗證） | major | `v0.x.y` → `v1.0.0` |
+
+### 執行步驟
+
+1. 更新 `.claude-plugin/plugin.json` 的 `version` 欄位
+2. 更新 `.claude-plugin/marketplace.json` 的 `version` 欄位
+3. Commit：`chore: bump version to vX.Y.Z`
+4. 打 tag：`git tag vX.Y.Z`
+5. Push：`git push && git push --tags`
+
+### 觸發時機
+
+```
+sprint-review 驗收通過
+  → 觸發 deployment-readiness
+    → SRE subagent 執行版本 Tag 流程
+    → 部署就緒檢查（若有部署需求）
+```
+
+<HARD-GATE>
+`plugin.json` 與 `marketplace.json` 的版號必須一致。
+Tag 名稱必須與 `plugin.json` 的 version 欄位一致（加 `v` 前綴）。
+</HARD-GATE>
+
+---
+
+## 5. 部署 Checklist
 
 每次部署前必須逐項確認：
 
@@ -90,7 +126,7 @@ Checklist 中任一項目未勾選，不得執行部署。
 
 ---
 
-## 5. Golden Signals 監控
+## 6. Golden Signals 監控
 
 部署後必須持續監控以下四大黃金信號，確保服務健康：
 
@@ -105,7 +141,7 @@ Checklist 中任一項目未勾選，不得執行部署。
 
 ---
 
-## 6. SLO/SLI 驗證
+## 7. SLO/SLI 驗證
 
 部署前後必須驗證服務水準目標：
 
@@ -123,7 +159,7 @@ Checklist 中任一項目未勾選，不得執行部署。
 
 ---
 
-## 7. 可靠性架構
+## 8. 可靠性架構
 
 部署方案必須考慮以下可靠性設計：
 
@@ -136,7 +172,7 @@ Checklist 中任一項目未勾選，不得執行部署。
 
 ---
 
-## 8. Hard Gates
+## 9. Hard Gates
 
 <HARD-GATE>
 不可修改業務邏輯——業務邏輯變更屬於 Architect 權限範疇。
@@ -155,7 +191,7 @@ Toil（重複性手動操作）不得超過 50% 工時。
 
 ---
 
-## 9. 與其他 Skill 的關係
+## 10. 與其他 Skill 的關係
 
 | 情境 | 觸發 |
 |------|------|
