@@ -26,10 +26,6 @@ claude plugin install shikigami
 
 > **Note:** You must add the marketplace before installing. A new session will auto-activate after installation.
 
-### Cursor
-
-Search for `shikigami` in Cursor's plugin settings and click install.
-
 ---
 
 ## 7 Roles

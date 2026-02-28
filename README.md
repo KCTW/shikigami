@@ -26,10 +26,6 @@ claude plugin install shikigami
 
 > **注意**：需先加入 marketplace 才能安裝。安裝後開新 session 即自動啟動。
 
-### Cursor
-
-在 Cursor 的 plugin 設定中搜尋 `shikigami`，點擊安裝。
-
 ---
 
 ## 7 個角色
