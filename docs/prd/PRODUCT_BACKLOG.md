@@ -1,6 +1,6 @@
 # Product Backlog
 
-**最後更新**：2026-02-28
+**最後更新**：2026-02-28（Sprint 2 Planning）
 **管理者**：Product Owner
 
 ---

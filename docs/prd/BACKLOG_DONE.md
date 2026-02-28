@@ -127,6 +127,74 @@ As a Developer or Product Owner, I want to post comments on GitHub issues in res
 
 ---
 
+---
+
+## Sprint 2（2026-02-28）
+
+**Sprint Goal**：讓框架能感知自己的狀態
+
+| Story | RICE | MoSCoW | ADR | 完成狀態 |
+|-------|------|--------|-----|----------|
+| US-07：Health Check Skill | 27.0 | Must | — | Done |
+| US-S01：Standup 遠端差距感知 | 63.3 | Must | — | Done |
+
+---
+
+### US-07：Health Check Skill
+
+**標題**：框架自我診斷
+
+**User Story**
+As a Scrum Master, I want to check the framework's health status with a single command, so that I can immediately identify broken configurations, orphan artifacts, and overdue action items without manually inspecting each file.
+
+**Acceptance Criteria**
+- AC1：skills/health-check/SKILL.md 存在且含有效 frontmatter；scrum-master 決策樹含 health-check 路由
+- AC2：檢查 ./CLAUDE.md、docs/PROJECT_BOARD.md、docs/prd/PRODUCT_BACKLOG.md；缺失或為空標記 FAIL
+- AC3：掃描 sprint_N.md 中的 Story，反向驗證存在於 PRODUCT_BACKLOG.md 或 BACKLOG_DONE.md
+- AC4：ADR 欄位非「—」的 Story，驗證 ADR 文件存在且狀態為 Accepted
+- AC5：Retrospective_Log.md 中 Open Action Items，超 14 天標記 OVERDUE
+- AC6：報告含 Overall Status + 4 項檢查 + 修復建議
+- AC7：4 項檢查全部出現，即使通過亦顯示 PASS
+
+**RICE 評分**
+| 維度 | 分數 |
+|------|------|
+| Reach | 10 |
+| Impact | 3 |
+| Confidence | 90% |
+| Effort | 1.0 |
+| **RICE Score** | **27.0** |
+
+**MoSCoW**：Must
+
+---
+
+### US-S01：Standup 遠端差距感知
+
+**標題**：Standup 報告新增 Git 同步狀態
+
+**User Story**
+As a Developer, I want the daily standup to show the git sync status between local and remote, so that I can immediately know if I need to pull or push before starting work.
+
+**Acceptance Criteria**
+- AC1：standup 報告新增 Git 同步狀態區塊；顯示未推送 commits；無 tracking branch 時顯示提示
+- AC2：先 git fetch（超時 5 秒），顯示未拉取 commits；N > 0 附警告
+- AC3：git remote 為空時靜默略過
+- AC4：git fetch 超時/失敗時降級顯示
+
+**RICE 評分**
+| 維度 | 分數 |
+|------|------|
+| Reach | 10 |
+| Impact | 2 |
+| Confidence | 95% |
+| Effort | 0.3 |
+| **RICE Score** | **63.3** |
+
+**MoSCoW**：Must
+
+---
+
 ### Story 4：Issue Triage（自動分類）
 
 **標題**：自動 Triage 新進 GitHub Issue

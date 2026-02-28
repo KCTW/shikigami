@@ -106,6 +106,26 @@ claude plugin install shikigami
 
 ---
 
+## Plan Mode 與 Shikigami 的互斥關係
+
+### 問題
+
+Claude Code 的 Plan Mode 啟用時，Shikigami 的 Skill 調度會被完全封印。所有 `invoke shikigami:*` 的觸發都不會執行，式神團隊形同癱瘓。
+
+Sprint 1 曾因 Session 開始時進入 Plan Mode，導致 Scrum Master 無法調度任何角色，浪費了探索時間。
+
+### 原因
+
+Plan Mode 是 Claude Code 的內建機制，進入後主 Agent 只能使用有限的工具（Read、Glob、Grep 等探索工具）。Skill 調度和 Agent 派遣都被禁用，因此 Shikigami 的整個治理流程無法運作。
+
+### 避免方式
+
+1. **不要在 Session 開始時主動進入 Plan Mode**。如果 Claude Code 提示是否進入 Plan Mode，選擇拒絕
+2. **需要規劃時使用 Shikigami 自己的流程**：`sprint-planning`（Sprint 規劃）、`architecture-decision`（技術決策）、`backlog-management`（需求管理）都有內建的規劃流程
+3. **如果已經在 Plan Mode 中**：使用 `ExitPlanMode` 工具退出，然後重新讓 Scrum Master 接管調度
+
+---
+
 ## 環境注意
 
 - `~/.bashrc` 不要放 `GITHUB_TOKEN`（過期 token 會干擾 git push）

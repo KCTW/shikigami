@@ -37,6 +37,7 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 | `git-workflow` | 建立分支隔離、開發完成合併/PR、worktree 管理 |
 | `parallel-dispatch` | 多個獨立任務需同時處理 |
 | `issue-management` | GitHub Issue 管理、分類、回覆、Issue 轉 Backlog |
+| `health-check` | 框架狀態檢查、自我診斷、結構完整性驗證 |
 
 ---
 
@@ -100,6 +101,7 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 ├── 多個獨立任務 → invoke shikigami:parallel-dispatch
 ├── Issue 管理/分類/回覆 → invoke shikigami:issue-management
 ├── Issue 轉 User Story → invoke shikigami:issue-management
+├── 框架狀態/健康檢查/自我診斷 → invoke shikigami:health-check
 └── 日常開發 → 主 Agent 直接執行（不需觸發角色）
 ```
 
@@ -151,7 +153,41 @@ shikigami.project_level: medium
 - **需要專業判斷時**：按上方觸發規則啟動對應 Skill，派遣 Subagent 執行。
 - **團隊內部閉環**：大部分決策由團隊自行解決，不升級 Stakeholder。
 - **「沉默即同意」**：被知會（I）但未回應的決策，團隊可自行推進，不因等待回應而阻塞。
-- **不阻塞原則**：流程中避免使用 AskUserQuestion 停下來等待。決策點依專案等級自動處理，僅在 `high` 等級的高風險操作才暫停等待人工確認。
+- **不阻塞原則**：見下方獨立章節。
+
+### 6.1 不阻塞原則
+
+**核心原則**：流程中避免使用 AskUserQuestion 停下來等待。決策點依專案等級自動處理，僅在 `high` 等級的高風險操作才暫停等待人工確認。
+
+**決策樹**：遇到需要判斷的情境時，按以下順序評估：
+
+```
+需要做決策？
+├── 專案等級是 high 且操作是高風險？
+│   └── YES → 暫停，使用 AskUserQuestion 請使用者確認
+│   └── NO ↓
+├── 有明確的流程規則可依循？（RACI、DoD、Hard Gate）
+│   └── YES → 按規則自動執行，不詢問
+│   └── NO ↓
+├── 有歷史先例可參考？（ADR、Retro Action、過往 Sprint 決策）
+│   └── YES → 按先例執行，在 commit message 或文件中記錄引用依據
+│   └── NO ↓
+├── 影響範圍小且可逆？（文件修改、本地操作、label 變更）
+│   └── YES → 自動執行，事後在看板或 commit 中通知
+│   └── NO ↓
+└── 以上都不適用 → 選擇最保守的自動化選項執行，Sprint Review 時回報
+```
+
+**絕對不問的情境**：
+- 選擇哪個 Story 先做（按看板優先級）
+- 是否需要啟動 Subagent（按觸發規則）
+- 文件格式或命名慣例（按現有慣例）
+- 測試是否通過（跑測試即可知道）
+
+**必須暫停的情境**：
+- `high` 等級專案的高風險操作（公開留言、關閉 issue、部署）
+- 發現明確的安全漏洞需要人工決策
+- 升級鏈走完仍無法解決的僵局
 
 ---
 
