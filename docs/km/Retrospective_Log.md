@@ -36,7 +36,7 @@
 
 | # | Action | Owner | 驗收方式 | 狀態 |
 |---|--------|-------|----------|------|
-| 1 | scrum-master 決策樹加入「Sprint 完成自動觸發 sprint-review」邏輯 | Scrum Master | 下次 Sprint 完成後自動跑 Review | Closed |
+| 1 | scrum-master 決策樹加入「Sprint 完成自動觸發 sprint-review」邏輯 | Scrum Master | 下次 Sprint 完成後自動跑 Review | Reopened（Sprint 2 重犯） |
 | 2 | scrum-master 加入「不阻塞原則」強化指引，減少 AskUserQuestion 使用 | Scrum Master | 下次 Sprint 中 AskUserQuestion 次數 ≤ 1 | Closed（Sprint 2） |
 | 3 | 文件中明確說明 Plan Mode 與 Shikigami 的互斥關係 | Developer | PLUGIN_DEV_NOTES.md 新增說明 | Closed（Sprint 2） |
 
@@ -62,7 +62,7 @@
 
 - **Stakeholder 方向調整即時生效**：Sprint Planning 中途收到「感知優先」指示，PO 立即重選 Stories，沒有浪費已完成的分析
 - **QA 審查品質高**：發現 14 個 AC 缺口（US-07 有 5 項需修正），全部在進 Sprint 前修補，避免了實作階段的返工
-- **Sprint 1 Retro Action Items 全部關閉**：3 個 Action（#1 已在 Sprint 1 關閉，#2 #3 本 Sprint 關閉），升級機制未被觸發，流程健康
+- **Sprint 1 Retro Action Items #2 #3 關閉**：不阻塞原則強化 + Plan Mode 互斥說明皆在本 Sprint 交付
 - **角色制衡有效**：PO 選取 → Architect 確認 Size + ADR → QA 審 AC → PO 修補，四角色接力無阻塞
 
 ### Problem（需改進的事）
@@ -70,6 +70,7 @@
 - **Standup 未偵測遠端差距**：Session 開始時 standup 沒發現本地落後遠端 19 個 commit，導致重做 Product Discovery，浪費約 15 分鐘（此問題已被 US-S01 解決）
 - **ROADMAP vs Backlog 不同步**：ROADMAP v0.2.0 規劃了 US-06/07/08，但 Backlog 只有測試框架 Stories，PO 需要即時補寫 Story，增加了 Planning 複雜度
 - **Health Check 只有被動查詢**：Stakeholder 回饋指出，使用者忘記執行 /health-check 時框架仍是盲區。需要掛鉤到 standup 或 Sprint 開始時自動觸發
+- **Sprint Review 仍未自動觸發（重犯）**：Sprint Execution 完成所有 Story 後，Scrum Master 問了「要現在執行嗎？」而非直接觸發 sprint-review。這與 Sprint 1 Retro Action #1 是同一個問題 — 文件規則已寫入（5.2 狀態驅動）但行為未遵循。Sprint 2 新增的「不阻塞原則」6.1 章節也明確列為「絕對不問」的情境，但仍然問了。結論：Sprint 1 Action #1 的 Closed 判定有誤，問題未真正解決
 
 ### Action Items
 
@@ -77,3 +78,4 @@
 |---|--------|-------|----------|------|
 | 1 | PO 補寫 ROADMAP v0.2.0 剩餘 Stories（US-06 Onboarding、US-08 Sprint Metrics）進 Backlog | PO | PRODUCT_BACKLOG.md 有對應完整 Story | Open |
 | 2 | Health Check 自動掛鉤：standup 或 Sprint 開始時自動執行輕量健康掃描 | Developer | standup.md 或 sprint-planning SKILL 含 health-check 呼叫 | Open |
+| 3 | Sprint Review 自動觸發重修：Sprint 1 Action #1 誤判 Closed，需重新開啟。規則存在但行為未遵循，需找出根因（是 prompt 不夠強？還是需要機制性保障？） | Scrum Master | 下次 Sprint 完成後 sprint-review 零詢問自動觸發 | Open |

@@ -155,7 +155,9 @@ As a Developer, I want the daily standup to show the git sync status between loc
 - Standup 未偵測遠端差距（已被 US-S01 解決）
 - ROADMAP vs Backlog 不同步
 - Health Check 只有被動查詢
+- Sprint Review 仍未自動觸發（Sprint 1 Action #1 重犯，規則存在但行為未遵循）
 
 ### Action（下個 Sprint 執行）
 - [ ] PO 補寫 US-06、US-08 進 Backlog
 - [ ] Health Check 自動掛鉤到 standup 或 Sprint 開始
+- [ ] Sprint Review 自動觸發重修（Sprint 1 Action #1 Reopened）
