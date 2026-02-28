@@ -16,15 +16,18 @@ Shikigami 是一個 **plugin 框架**，為你的 AI 開發工具注入 7 個專
 
 ### Claude Code
 
-```bash
+在 Claude Code 互動介面中執行以下指令：
+
+```
 # 1. 加入 marketplace（首次安裝）
 /plugin marketplace add KCTW/shikigami
 
-# 2. 安裝 plugin
-claude plugin install shikigami
+# 2. 安裝 plugin（二選一）
+/plugin install shikigami          # 指令安裝
+/plugin                            # 或開啟 UI → Discover → 選擇 shikigami
 ```
 
-> **注意**：需先加入 marketplace 才能安裝。安裝後開新 session 即自動啟動。
+> **注意**：所有指令都在 Claude Code 互動介面中輸入（不是終端機 shell）。安裝後開新 session 即自動啟動。
 
 ---
 

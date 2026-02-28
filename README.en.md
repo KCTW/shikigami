@@ -16,15 +16,18 @@ Shikigami is a **plugin framework** that injects 7 specialized roles (Shikigami)
 
 ### Claude Code
 
-```bash
+Run the following commands inside the Claude Code interactive interface:
+
+```
 # 1. Add marketplace (first time only)
 /plugin marketplace add KCTW/shikigami
 
-# 2. Install plugin
-claude plugin install shikigami
+# 2. Install plugin (either way)
+/plugin install shikigami          # Command install
+/plugin                            # Or open UI → Discover → select shikigami
 ```
 
-> **Note:** You must add the marketplace before installing. A new session will auto-activate after installation.
+> **Note:** All commands are entered in the Claude Code interactive interface (not the terminal shell). A new session will auto-activate after installation.
 
 ---
 
