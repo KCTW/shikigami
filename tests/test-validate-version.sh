@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # tests/test-validate-version.sh
 # US-T04：版號一致性驗證 — 測試套件
-# TDD Red 階段：所有測試覆蓋 AC1 / AC2 / AC3
+# 覆蓋 AC1（plugin.json 一致性）/ AC2（git tag 一致性）/ AC3（0.x.x 降級 WARNING）
 
 set -euo pipefail
 
