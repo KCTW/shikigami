@@ -1,6 +1,6 @@
 # 產品路線圖
 
-> 最後更新：2026-02-28
+> 最後更新：2026-03-01
 > 擁有者：Product Owner
 
 本文件是里程碑規劃的**唯一來源（Single Source of Truth）**。
@@ -37,7 +37,7 @@
 |---|---|---|
 | US-06 | Onboarding Skill — 自動初始化專案文件結構 | Sprint 3 ✅ |
 | US-07 | Health Check Skill — 自我診斷框架完整性 | Sprint 2 ✅ |
-| US-08 | Sprint Metrics — Velocity 追蹤與趨勢分析 | 推遲至 Sprint 4 |
+| US-08 | Sprint Metrics — Velocity 追蹤與趨勢分析 | Sprint 4 ✅ |
 
 ### US-06：Onboarding（專案初始化）
 
@@ -66,7 +66,7 @@ Sprint Review 時自動產出：
 
 **完成條件**：新專案能零配置啟動、Health Check 能偵測至少 5 種異常、Metrics 能回溯分析 3+ 個 Sprint
 
-> **備注**：v0.2.0 核心功能已交付（Onboarding + Health Check + 版號驗證 + 行為性缺陷修復）。US-08 Sprint Metrics 為 Should 優先級，推遲至 Sprint 4 不影響里程碑目標。
+> **備注**：v0.2.0 全部交付完成。核心功能（Onboarding + Health Check）於 Sprint 2–3 交付，US-08 Sprint Metrics 於 Sprint 4 補完。
 
 ---
 
@@ -78,9 +78,9 @@ Sprint Review 時自動產出：
 
 | Story | 功能 | Sprint |
 |---|---|---|
-| US-09 | Retrospective Analytics — 問題趨勢分析與模式辨識 | Sprint 3–4 |
-| US-10 | Tech Debt Registry — 技術債追蹤與自動排入 Backlog | Sprint 4 |
-| US-11 | Decision Knowledge Base — ADR 查詢與決策影響追蹤 | Sprint 4 |
+| US-09 | Retrospective Analytics — 問題趨勢分析與模式辨識 | Sprint 4 ✅ |
+| US-10 | Tech Debt Registry — 技術債追蹤與自動排入 Backlog | Sprint 5+ |
+| US-11 | Decision Knowledge Base — ADR 查詢與決策影響追蹤 | Sprint 5+ |
 
 ### US-09：Retrospective Analytics
 
@@ -178,11 +178,11 @@ Sprint Review 時自動產出：
 
 ```
 v0.1.0 核心框架        v0.2.0 自我感知        v0.3.0 知識沉澱        v0.4.0 外部整合       v0.5.0 穩定化    v1.0.0
-Sprint 1              Sprint 2   Sprint 3    Sprint 3   Sprint 4    Sprint 5   Sprint 6   Sprint 7-8       TBD
+Sprint 1              Sprint 2–3  Sprint 4    Sprint 4   Sprint 5+   Sprint 6+  Sprint 7+  Sprint 8+        TBD
 ──────────────────────┬──────────┬───────────┬──────────┬───────────┬──────────┬──────────┬──────────────────┬─────
-Issue Mgmt            │ Onboard  │ Metrics   │ Retro    │ Tech Debt │ CI/CD    │ DORA     │ 安裝驗證         │ 官方
-專案等級              │ Health   │           │ Analytics│ ADR KB    │ 整合     │ Metrics  │ 多平台調查       │ 上架
+Issue Mgmt            │ Onboard  │ Metrics ✅│ Retro    │ Tech Debt │ CI/CD    │ DORA     │ 安裝驗證         │ 官方
+專案等級              │ Health   │           │ Analytic✅│ ADR KB    │ 整合     │ Metrics  │ 多平台調查       │ 上架
 ADR-001               │ Check    │           │          │           │          │ 通知     │ 使用者文件       │
 ──────────────────────┴──────────┴───────────┴──────────┴───────────┴──────────┴──────────┴──────────────────┴─────
-已交付                 自我感知                 從經驗學習              與工具鏈整合           面向外部使用者
+已交付 ✅              已交付 ✅               進行中（1/3）           規劃中                 規劃中            遠期
 ```
