@@ -49,7 +49,12 @@ Developer 實作 + TDD + 自我審查
 如有安全相關 --> 派遣 Security subagent
   |
   v
-更新 PROJECT_BOARD --> 下一個 Story
+更新 PROJECT_BOARD
+  |
+  v
+Sprint Backlog 還有 Story？
+  |-- YES --> 取出下一個 Story（回到頂端繼續）
+  +-- NO（所有 Story 完成）--> 立即 invoke shikigami:sprint-review（不詢問使用者）
 ```
 
 ### 步驟詳解
@@ -60,7 +65,7 @@ Developer 實作 + TDD + 自我審查
 4. **Spec Compliance Review**：派遣 QA subagent 使用 `spec-reviewer-prompt.md`，獨立驗證實作是否符合所有 Acceptance Criteria。
 5. **Code Quality Review**：派遣 QA subagent 使用 `quality-reviewer-prompt.md`，評估代碼品質、SOLID 原則、測試品質。
 6. **安全審查（條件觸發）**：若 Story 涉及外部輸入、API 端點、配置變更，派遣 Security subagent 進行安全審查。
-7. **更新看板**：Story 移至「已完成」，更新 `docs/PROJECT_BOARD.md`，進入下一個 Story。
+7. **更新看板與終止判斷**：Story 移至「已完成」，更新 `docs/PROJECT_BOARD.md`。接著檢查終止條件：Sprint Backlog 中仍有待辦 Story → 取出下一個 Story 繼續執行；Sprint Backlog 已清空（所有 Story 完成）→ **立即 invoke shikigami:sprint-review**，不詢問使用者、不跳回「下一個 Story」流程。
 
 ---
 

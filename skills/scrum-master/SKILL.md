@@ -38,6 +38,7 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 | `parallel-dispatch` | 多個獨立任務需同時處理 |
 | `issue-management` | GitHub Issue 管理、分類、回覆、Issue 轉 Backlog |
 | `health-check` | 框架狀態檢查、自我診斷、結構完整性驗證 |
+| `onboarding` | 新用戶安裝後初始化、專案目錄 scaffold、CLAUDE.md 生成 |
 
 ---
 
@@ -102,6 +103,7 @@ description: "Use when starting any conversation - 自動調度 Shikigami Agent 
 ├── Issue 管理/分類/回覆 → invoke shikigami:issue-management
 ├── Issue 轉 User Story → invoke shikigami:issue-management
 ├── 框架狀態/健康檢查/自我診斷 → invoke shikigami:health-check
+├── 初始化專案/第一次使用/scaffold/onboarding → invoke shikigami:onboarding
 └── 日常開發 → 主 Agent 直接執行（不需觸發角色）
 ```
 
@@ -183,6 +185,7 @@ shikigami.project_level: medium
 - 是否需要啟動 Subagent（按觸發規則）
 - 文件格式或命名慣例（按現有慣例）
 - 測試是否通過（跑測試即可知道）
+- Sprint Execution 完成後是否觸發 Sprint Review（Sprint Backlog 清空即自動觸發，不詢問）
 
 **必須暫停的情境**：
 - `high` 等級專案的高風險操作（公開留言、關閉 issue、部署）

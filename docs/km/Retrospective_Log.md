@@ -36,7 +36,7 @@
 
 | # | Action | Owner | 驗收方式 | 狀態 |
 |---|--------|-------|----------|------|
-| 1 | scrum-master 決策樹加入「Sprint 完成自動觸發 sprint-review」邏輯 | Scrum Master | 下次 Sprint 完成後自動跑 Review | Reopened（Sprint 2 重犯） |
+| 1 | scrum-master 決策樹加入「Sprint 完成自動觸發 sprint-review」邏輯 | Scrum Master | 下次 Sprint 完成後自動跑 Review | Closed（Sprint 3） |
 | 2 | scrum-master 加入「不阻塞原則」強化指引，減少 AskUserQuestion 使用 | Scrum Master | 下次 Sprint 中 AskUserQuestion 次數 ≤ 1 | Closed（Sprint 2） |
 | 3 | 文件中明確說明 Plan Mode 與 Shikigami 的互斥關係 | Developer | PLUGIN_DEV_NOTES.md 新增說明 | Closed（Sprint 2） |
 
@@ -76,6 +76,44 @@
 
 | # | Action | Owner | 驗收方式 | 狀態 |
 |---|--------|-------|----------|------|
-| 1 | PO 補寫 ROADMAP v0.2.0 剩餘 Stories（US-06 Onboarding、US-08 Sprint Metrics）進 Backlog | PO | PRODUCT_BACKLOG.md 有對應完整 Story | Open |
-| 2 | Health Check 自動掛鉤：standup 或 Sprint 開始時自動執行輕量健康掃描 | Developer | standup.md 或 sprint-planning SKILL 含 health-check 呼叫 | Open |
-| 3 | Sprint Review 自動觸發重修：Sprint 1 Action #1 誤判 Closed，需重新開啟。規則存在但行為未遵循，需找出根因（是 prompt 不夠強？還是需要機制性保障？） | Scrum Master | 下次 Sprint 完成後 sprint-review 零詢問自動觸發 | Open |
+| 1 | PO 補寫 ROADMAP v0.2.0 剩餘 Stories（US-06 Onboarding、US-08 Sprint Metrics）進 Backlog | PO | PRODUCT_BACKLOG.md 有對應完整 Story | Closed（Sprint 3 Planning） |
+| 2 | Health Check 自動掛鉤：standup 或 Sprint 開始時自動執行輕量健康掃描 | Developer | standup.md 或 sprint-planning SKILL 含 health-check 呼叫 | Closed（Sprint 3） |
+| 3 | Sprint Review 自動觸發重修：Sprint 1 Action #1 誤判 Closed，需重新開啟。規則存在但行為未遵循，需找出根因（是 prompt 不夠強？還是需要機制性保障？） | Scrum Master | 下次 Sprint 完成後 sprint-review 零詢問自動觸發 | Closed（Sprint 3） |
+
+---
+
+## Sprint 3 — 2026-03-01
+
+**Sprint Goal**：完成 v0.2.0 自我感知，並修復跨兩個 Sprint 的行為性缺陷
+**結果**：Goal 達成。全部 4 個 Story / Retro Action Items 完成交付。
+
+### 交付成果
+
+| Story | Size | 狀態 | 驗收 |
+|-------|------|------|------|
+| Story 1（Retro #3）：Sprint Review 自動觸發重修 | S | Done | AC 全通過 — sprint-execution 末端邏輯結構性修復，Sprint 3 零詢問自動觸發驗證通過 |
+| US-06：Onboarding（專案初始化） | M | Done | AC 全通過（7/7）— 目錄建立 + 文件複製 + CLAUDE.md 生成 + 冪等性 + 錯誤處理 |
+| Story 3（Retro #2）：Health Check 自動掛鉤 | S | Done | AC 全通過 — standup 輕量掃描（2 項）+ sprint-planning 完整掃描（4 項） |
+| US-T04：版號一致性驗證 | S | Done | AC 全通過（3/3）— TDD Red-Green-Refactor，11 個測試案例全覆蓋 |
+
+**Velocity**：5 points（1S + 1M + 1S + 1S；Retro Action Items 計入 S）
+
+### Good（保持做的事）
+
+- **Sprint Review 零詢問自動觸發**：Story 1 的結構性修復（把觸發邏輯移入 sprint-execution 流程末端）有效。Sprint 1/2 連續重犯的問題在 Sprint 3 正式修復
+- **QA Planning 品質穩定**：Sprint 2 修了 14 個 AC 缺口，Sprint 3 修了 13 個，品質控制持續有效
+- **Retro Action Items 全部關閉**：Sprint 2 的 3 個 Open Action Items 在 Sprint 3 全部處理完畢（#1 在 Planning 關閉，#2 和 #3 作為 Story 交付）
+- **TDD 流程執行**：US-T04 嚴格遵循 Red-Green-Refactor，11 個測試案例全覆蓋
+
+### Problem（需改進的事）
+
+- **US-08 Sprint Metrics 推遲**：v0.2.0 的 ROADMAP 包含 US-08，但因容量與優先級決策推遲至 Sprint 4。v0.2.0 嚴格來說少了一個 Should Story
+- **AC 品質系統性問題**：QA 連續兩個 Sprint 發現約 14 個 AC 缺陷。根因是 AC 混合文件結構條件（靜態）和 AI 行為條件（動態），兩種驗收方式不同但未在 AC 中區分
+- **sprint-planning 第 6 節未同步更新**：Story 3 在 sprint-planning Checklist（第 2 節）加了健康檢查步驟，但第 6 節 Subagent 派遣說明未同步更新。QA 觀察到但未阻塞
+
+### Action Items
+
+| # | Action | Owner | 驗收方式 | 狀態 |
+|---|--------|-------|----------|------|
+| 1 | AC 分類標注：Backlog Grooming/Sprint Planning 時每個 AC 標注驗收類型：[靜態]（文件結構可直接驗證）或 [動態]（需執行 AI 流程觀測），降低 QA 審查量 | QA | 下次 Sprint Planning AC 表格含 [靜態]/[動態] 標注 | Open |
+| 2 | sprint-planning 第 6 節同步：補入步驟 0（健康檢查）使 Checklist 與派遣說明一致 | Developer | sprint-planning SKILL.md 第 6 節含步驟 0 健康檢查 | Open |

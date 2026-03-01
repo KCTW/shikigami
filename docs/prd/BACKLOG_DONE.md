@@ -219,3 +219,81 @@ As a Product Owner, I want to automatically triage new GitHub issues by classify
 | **RICE Score** | **5.6** |
 
 **MoSCoW**：Should
+
+---
+
+## Sprint 3（2026-03-01）
+
+**Sprint Goal**：完成 v0.2.0 自我感知，並修復跨兩個 Sprint 的行為性缺陷
+
+| Story | RICE | MoSCoW | ADR | 完成狀態 |
+|-------|------|--------|-----|----------|
+| US-06：Onboarding（專案初始化） | 40.8 | Must | — | Done |
+| US-T04：版號一致性驗證 | 48.0 | Should | — | Done |
+
+> 備注：Story 1（Retro #3）和 Story 3（Retro #2）為 Retro Action Items，不是 Backlog Stories，不歸入此表。
+
+---
+
+### US-06：Onboarding（專案初始化）
+
+**標題**：新使用者專案初始化自動引導
+
+**User Story**
+As a new user, I want Shikigami to automatically scaffold my project's document structure after installation, so that I can start my first Sprint within 5 minutes without manually creating directories or copying templates.
+
+**Acceptance Criteria**（Sprint 3 Planning QA 修正後）
+
+| # | 條件 | 通過標準 |
+|---|------|----------|
+| AC1 | 觸發與路由 | (a) `skills/onboarding/SKILL.md` 存在且 frontmatter 含 `name` 與 `description` 欄位；(b) `skills/scrum-master/SKILL.md` 5.1 決策樹新增一條「意圖描述 → invoke shikigami:onboarding」路由 |
+| AC2 | 目錄結構建立 | 執行後 `docs/prd/`、`docs/adr/`、`docs/sprints/`、`docs/km/` 四個目錄全部存在；已存在不寫入，AI 輸出「[略過] docs/xxx/ 已存在」 |
+| AC3 | 初始文件複製 | 從 `templates/` 複製 `PRODUCT_BACKLOG.md`、`ROADMAP.md`、`PROJECT_BOARD.md` 至 `docs/prd/`；已存在不覆蓋，標記警告而非中斷 |
+| AC4 | CLAUDE.md 生成 | `CLAUDE.md` 不存在時，詢問使用者 3 個問題（專案名稱、技術棧、專案等級）後生成。**【豁免不阻塞原則】**：CLAUDE.md 是框架根設定，錯誤等級=高風險，任何專案等級皆需人工確認。已存在略過，輸出「CLAUDE.md 已存在，使用現有設定」 |
+| AC5 | Product Discovery 引導 | 初始化完成後輸出下一步清單，必含 3 項：確認 CLAUDE.md 內容、執行 `/standup` 確認環境、說明如何啟動 Sprint Planning；允許輸出額外引導項目 |
+| AC6 | 冪等性 | 重複執行不產生錯誤、不覆蓋已存在內容；輸出「跳過 X 目錄、Y 檔案（共 Z 項）」摘要 |
+| AC7 | 錯誤處理 | `templates/` 不存在時輸出明確錯誤訊息「templates/ 目錄遺失，請確認 Shikigami 安裝完整」，不靜默失敗 |
+
+**RICE 評分**
+| 維度 | 分數 |
+|------|------|
+| Reach | 8 |
+| Impact | 3 |
+| Confidence | 85% |
+| Effort | 0.5 |
+| **RICE Score** | **40.8** |
+
+**MoSCoW**：Must
+**Size**：M
+
+---
+
+### US-T04：版號一致性驗證
+
+**標題**：`.claude-plugin/` 版號跨文件一致性驗證
+
+**User Story**
+As a Developer, I want a check that ensures version numbers are consistent across `.claude-plugin/` files, so that plugin installation doesn't silently use mismatched versions.
+
+**範圍說明**：範圍限定為 `.claude-plugin/` 下的檔案。`.cursor-plugin` 是 Cursor 適配，與 Claude Code 主體獨立，版本策略不同，不納入本 Story 驗證範圍。
+
+**Acceptance Criteria**（Sprint 3 Planning QA 修正後）
+
+| # | 條件 | 通過標準 |
+|---|------|----------|
+| AC1 | plugin.json 與 marketplace.json 一致性 | 驗證 `.claude-plugin/plugin.json` 的 `version` 與 `.claude-plugin/marketplace.json` 的 `plugins[0].version` 相同；不同則 FAIL + 非零 exit code |
+| AC2 | git tag 一致性 | 若存在 git tag，最新 semver tag 與 `.claude-plugin/plugin.json` 的 `version` 一致；不一致則報錯 |
+| AC3 | 0.x.x 開發期降級 | `version` 符合 `^0\.\d+\.\d+$` 時，AC2 降級為 WARNING（非 FAIL），允許開發期 tag 未對齊；1.0.0 以上恢復強制 FAIL |
+
+**RICE 評分**
+| 維度 | 分數 |
+|------|------|
+| Reach | 8 |
+| Impact | 2 |
+| Confidence | 90% |
+| Effort | 0.3 |
+| **RICE Score** | **48.0** |
+
+**MoSCoW**：Should
+**Size**：S
+**TDD**：Red-Green-Refactor，11 個測試案例全覆蓋

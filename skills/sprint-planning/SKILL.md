@@ -17,6 +17,7 @@ Sprint Planning 是每個 Sprint 週期的起點儀式。主要由 **Product Own
 
 以下步驟必須逐項建立 task 完成，不可跳過：
 
+- [ ] **執行框架健康檢查**（invoke shikigami:health-check）— 完整 4 項檢查（必要文件 + 孤兒 Story + ADR 一致性 + Retro 逾期）。CRITICAL 標注警告但不阻塞 Planning 流程
 - [ ] **PO subagent** 讀取 `docs/prd/PRODUCT_BACKLOG.md` 與 `docs/PROJECT_BOARD.md`，掌握目前 Backlog 狀態與專案進度
 - [ ] **PO subagent** 從 Backlog 頂部（依優先級排序）選取符合 Sprint Goal 的 Stories
 - [ ] **檢查選入的 Story 是否標注「需要 ADR」** — 若標注需要 ADR，則該 ADR 必須已建立且狀態為 Accepted，方可進入 Sprint

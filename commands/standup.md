@@ -3,7 +3,42 @@ description: "執行每日站立會議，檢視當前 Sprint 進度與阻礙"
 disable-model-invocation: true
 ---
 
-執行 Daily Standup，依序完成以下兩個區塊：
+執行 Daily Standup，依序完成以下三個區塊：
+
+## 區塊零：健康快篩
+
+在進入 Standup 主體前，執行輕量健康掃描（2 項）：
+
+**檢查 1：必要文件存在性**
+
+掃描以下 3 個核心文件是否存在且非空：
+- `./CLAUDE.md`
+- `docs/PROJECT_BOARD.md`
+- `docs/prd/PRODUCT_BACKLOG.md`
+
+判定規則：任一文件不存在或為空（0 bytes）→ FAIL；全部存在且有內容 → PASS。
+
+**檢查 4：Retro Action Items 逾期偵測**
+
+讀取 `docs/km/Retrospective_Log.md`，找出所有狀態為 `Open` 的 Action Items。日期基準從所屬 Sprint 區塊標題提取（格式：`## Sprint N — YYYY-MM-DD`）。
+
+判定規則：無 Open 項目或 Open 項目距今 ≤ 14 天 → PASS；有 Open 項目距今 > 14 天 → OVERDUE。
+
+**快篩 Overall 判定規則**：
+
+| 條件 | 快篩狀態 |
+|------|----------|
+| 任一項 FAIL | CRITICAL |
+| 有 OVERDUE 但無 FAIL | WARNING |
+| 全部 PASS | HEALTHY |
+
+**輸出格式**（置於報告頂端）：
+
+- HEALTHY：`**健康快篩**：🟢 HEALTHY`
+- WARNING：`**健康快篩**：🟡 WARNING — Retro Action #N 已逾期 {天數} 天`
+- CRITICAL：`**健康快篩**：🔴 CRITICAL — {缺失文件} 缺失，建議執行 /sprint`
+
+WARNING/CRITICAL 僅附提示，不阻塞後續 Standup 流程，繼續執行區塊一與區塊二。
 
 ## 區塊一：Git 同步狀態
 

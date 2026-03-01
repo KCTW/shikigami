@@ -27,7 +27,7 @@
 
 ---
 
-## v0.2.0 自我感知 — 規劃中
+## v0.2.0 自我感知 — 已交付（Sprint 2–3）
 
 **主題**：讓框架能觀察自己、診斷自己、引導新使用者
 
@@ -35,9 +35,9 @@
 
 | Story | 功能 | Sprint |
 |---|---|---|
-| US-06 | Onboarding Skill — 自動初始化專案文件結構 | Sprint 2 |
-| US-07 | Health Check Skill — 自我診斷框架完整性 | Sprint 2 |
-| US-08 | Sprint Metrics — Velocity 追蹤與趨勢分析 | Sprint 2–3 |
+| US-06 | Onboarding Skill — 自動初始化專案文件結構 | Sprint 3 ✅ |
+| US-07 | Health Check Skill — 自我診斷框架完整性 | Sprint 2 ✅ |
+| US-08 | Sprint Metrics — Velocity 追蹤與趨勢分析 | 推遲至 Sprint 4 |
 
 ### US-06：Onboarding（專案初始化）
 
@@ -65,6 +65,8 @@ Sprint Review 時自動產出：
 - 跨 Sprint 趨勢分析（改善中/退步中/穩定）
 
 **完成條件**：新專案能零配置啟動、Health Check 能偵測至少 5 種異常、Metrics 能回溯分析 3+ 個 Sprint
+
+> **備注**：v0.2.0 核心功能已交付（Onboarding + Health Check + 版號驗證 + 行為性缺陷修復）。US-08 Sprint Metrics 為 Should 優先級，推遲至 Sprint 4 不影響里程碑目標。
 
 ---
 

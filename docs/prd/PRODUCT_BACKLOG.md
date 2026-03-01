@@ -1,11 +1,17 @@
 # Product Backlog
 
-**最後更新**：2026-02-28（Sprint 2 Planning）
+**最後更新**：2026-03-01（Sprint 3 完成）
 **管理者**：Product Owner
 
 ---
 
 ## 待選 Stories
+
+### v0.2.0 自我感知 — 剩餘 Stories
+
+| 排序 | Story | RICE | MoSCoW | Size | ADR |
+|------|-------|------|--------|------|-----|
+| 1 | US-08：Sprint Metrics（Velocity 追蹤） | 13.7 | Should | M | — |
 
 ### 測試框架 — v0.2.0 候選
 
@@ -13,13 +19,36 @@
 |------|-------|------|--------|------|-----|
 | 1 | US-T01：Skill 完整性驗證 | 54.0 | Must | S | ADR-002 |
 | 2 | US-T02：Agent 完整性驗證 | 54.0 | Must | S | ADR-002 |
-| 3 | US-T04：版號一致性驗證 | 48.0 | Should | S | — |
-| 4 | US-T03：JSON Schema 驗證 | 36.0 | Must | S | ADR-002 |
-| 5 | US-T05：交叉引用驗證 | 25.6 | Should | M | — |
-| 6 | US-T07：CI Pipeline | 24.0 | Should | M | — |
-| 7 | US-T06：Command 路由驗證 | 18.0 | Should | S | — |
-| 8 | US-T09：孤兒文件清理規範 | 16.7 | Could | S | — |
-| 9 | US-T08：Intent Routing 測試 | 6.0 | Could | L | — |
+| 3 | US-T03：JSON Schema 驗證 | 36.0 | Must | S | ADR-002 |
+| 4 | US-T05：交叉引用驗證 | 25.6 | Should | M | — |
+| 5 | US-T07：CI Pipeline | 24.0 | Should | M | — |
+| 6 | US-T06：Command 路由驗證 | 18.0 | Should | S | — |
+| 7 | US-T09：孤兒文件清理規範 | 16.7 | Could | S | — |
+| 8 | US-T08：Intent Routing 測試 | 6.0 | Could | L | — |
+
+---
+
+### US-08：Sprint Metrics（Velocity 追蹤與趨勢分析）
+
+**User Story**
+As a Scrum Master, I want Sprint Metrics automatically calculated and appended at the end of each Sprint Review, so that I can track Velocity trends across Sprints and make data-driven capacity decisions for Sprint Planning.
+
+**Acceptance Criteria**
+
+| # | 條件 | 通過標準 |
+|---|------|----------|
+| AC1 | 觸發整合 | `skills/sprint-review/SKILL.md` 最後一個步驟呼叫 Sprint Metrics 計算；Sprint Review 完成時 Metrics 自動附加，無需人工觸發 |
+| AC2 | Velocity 計算 | 讀取當期 `docs/sprints/sprint_N.md`，統計 Sprint Backlog 中狀態為 Done 的 Story 數量；依 T-shirt Sizing（S=1, M=2, L=3）換算 Story Points；輸出「本期 Velocity：X points（Y Stories）」 |
+| AC3 | 完成率計算 | 計算「計畫 Stories 數 vs 實際完成 Stories 數」；輸出完成率百分比；若有 Carry-over，列出未完成 Story 名稱 |
+| AC4 | 累積記錄 | 每次 Sprint Review 後，將 Metrics 追加至 `docs/km/Metrics_Log.md`（若不存在則建立）；格式：Sprint 編號 + 日期 + Velocity + 完成率 + 備註 |
+| AC5 | 趨勢分析（3+ Sprint 後啟用） | 當 `Metrics_Log.md` 累積 3 個以上 Sprint 記錄時，輸出趨勢判斷：「改善中（Velocity 連續上升）」、「退步中（Velocity 連續下降）」或「穩定（上下波動 ≤ 20%）」 |
+| AC6 | 資料不足降級 | Sprint 1 或 Sprint 2 時，趨勢分析輸出「資料不足，需 3 個以上 Sprint 才能分析趨勢」；不報錯，其餘指標正常顯示 |
+| AC7 | 歷史回溯 | 若 `sprint_1.md` 和 `sprint_2.md` 已存在，初次執行時可從既有 Sprint 文件回溯計算，補齊 `Metrics_Log.md` 的歷史空白 |
+
+**RICE**：Reach 6 × Impact 2 × Confidence 80% ÷ Effort 0.7 = **13.7**
+**MoSCoW**：Should
+**Size**：M
+**ADR**：—
 
 ---
 
@@ -72,21 +101,6 @@ As a Developer, I want automated validation of plugin.json and marketplace.json,
 **RICE**：Reach 10 × Impact 2 × Confidence 90% ÷ Effort 0.5 = **36.0**
 **MoSCoW**：Must
 **ADR**：ADR-002
-
----
-
-### US-T04：版號一致性驗證
-
-**User Story**
-As a Developer, I want a check that ensures version numbers are consistent across all version-bearing files.
-
-**Acceptance Criteria**
-- AC1：`plugin.json` 和 `marketplace.json` 的 `version` 必須相同
-- AC2：若存在 git tag，最新 tag 版號必須與 `plugin.json` 一致
-- AC3：不強制要求有 git tag（0.x.x 開發期可豁免）
-
-**RICE**：Reach 8 × Impact 2 × Confidence 90% ÷ Effort 0.3 = **48.0**
-**MoSCoW**：Should
 
 ---
 
