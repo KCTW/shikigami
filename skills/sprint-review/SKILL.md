@@ -50,6 +50,113 @@ Sprint Retrospective 的目的是團隊自省，找出可改進之處並制定�
 
 ### 步驟
 
+0. **Retrospective Analytics — 展示歷史趨勢分析報告**
+
+   **觸發時機**：Retrospective 開始時第一步執行，**報告展示完畢前不得開始收集 Good / Problem / Action**。
+
+   **指令**：讀取 `docs/km/Retrospective_Log.md`，依下列規則分析並輸出完整報告。
+
+   #### 前置檢查
+
+   - 若 `docs/km/Retrospective_Log.md` **不存在**：輸出「尚無 Retrospective 記錄」，正常結束 Analytics，繼續進行步驟 1。
+   - 若檔案存在但只有 **1 個 Sprint 記錄**：頻率統計區塊輸出「資料不足（需至少 2 個 Sprint）」；Action Items 關閉速度與待關閉 Items 區塊正常計算輸出。
+
+   #### 報告格式（四區塊，缺一不可）
+
+   輸出標題格式如下，四個區塊依序呈現：
+
+   ```
+   ## Retrospective Analytics 報告（Sprint N 前）
+
+   ### ① Good 趨勢
+
+   ### ② Problem 趨勢
+
+   ### ③ Action Items 關閉速度
+
+   ### ④ 待關閉 Items
+   ```
+
+   #### ① Good 趨勢 — 分析規則
+
+   1. 讀取所有 Sprint 的 `### Good` 區塊，逐條提取 Good 條列。
+   2. 以**語義主題**為單位歸類（關鍵字相近即視為同一主題，不要求精確字串比對）。
+   3. 出現 **2 次以上**的主題，輸出：
+      - 主題關鍵字（簡短描述）
+      - 出現次數
+      - 最近出現的 Sprint 編號
+   4. 無重複主題時，輸出「無重複 Good 趨勢」。
+
+   範例輸出：
+   ```
+   - **QA 審查品質**：出現 2 次（最近：Sprint 3）
+   - **角色制衡有效**：出現 2 次（最近：Sprint 2）
+   ```
+
+   #### ② Problem 趨勢 — 分析規則
+
+   1. 讀取所有 Sprint 的 `### Problem` 區塊，逐條提取 Problem 條列。
+   2. 以**語義主題**為單位歸類（關鍵字相近即視為同一主題）。
+   3. 出現 **2 次以上**的主題，輸出：
+      - 主題關鍵字（簡短描述）
+      - 出現次數
+      - 首次出現的 Sprint 編號
+      - 最近出現的 Sprint 編號
+      - 若「未解決」（定義：重複出現且最近一次無對應 Closed Action Item）：加上「跨 N 個 Sprint 未解決」
+   4. **連續出現**判斷與警示：
+      - **連續情境**（最近一次仍在最新的 Sprint 出現，且間無中斷）：醒目標注 `> ⚠️ **重複問題（連續 N 個 Sprint）**`
+      - **間斷情境**（中間有 Sprint 未出現，或最近一次不是最新 Sprint）：輸出「曾連續 N 個 Sprint（Sprint X-Y）」，說明是否已解決，**不觸發醒目警示**
+   5. 無重複主題時，輸出「無重複 Problem 趨勢」。
+
+   範例輸出（連續情境）：
+   ```
+   - **ROADMAP 與 Backlog 不同步**：出現 2 次（首次：Sprint 2，最近：Sprint 3）
+     > ⚠️ **重複問題（連續 2 個 Sprint）**
+   ```
+
+   範例輸出（間斷情境）：
+   ```
+   - **Sprint Review 自動觸發**：出現 2 次（首次：Sprint 1，最近：Sprint 2）
+     曾連續 2 個 Sprint（Sprint 1-2），已於 Sprint 3 關閉
+   ```
+
+   #### ③ Action Items 關閉速度 — 分析規則
+
+   1. 讀取所有 Sprint 的 `### Action Items` 表格，收集所有 Action Item。
+   2. 對每個 Closed Item，計算**關閉速度** = 關閉 Sprint 編號 − 建立 Sprint 編號（Sprint 數差）。
+   3. 輸出：
+      - 平均關閉速度（Sprint 數，四捨五入至一位小數）
+      - 最快關閉速度（Sprint 數 + 對應 Item 簡述）
+      - 最慢關閉速度（Sprint 數 + 對應 Item 簡述）
+   4. 若無任何 Closed Item，輸出「尚無已關閉 Action Item」。
+   5. 對所有 **Open** 狀態的 Item，計算逾期 Sprint 數 = 目前 Sprint 編號 − 建立 Sprint 編號，並標注「逾期 N 個 Sprint」。
+
+   範例輸出：
+   ```
+   - 平均關閉速度：1.0 個 Sprint
+   - 最快：1 個 Sprint（Action：不阻塞原則強化，Sprint 1 建立，Sprint 2 關閉）
+   - 最慢：2 個 Sprint（Action：Sprint Review 自動觸發，Sprint 1 建立，Sprint 3 關閉）
+   ```
+
+   #### ④ 待關閉 Items — 分析規則
+
+   1. 列出所有狀態為 **Open**（非 Closed）的 Action Item。
+   2. 每個 Item 輸出：
+      - Item 內容（Action 欄）
+      - Owner
+      - 建立 Sprint
+      - 逾期 Sprint 數
+   3. 無 Open Item 時，輸出「目前無待關閉 Action Items」。
+
+   範例輸出：
+   ```
+   | Action | Owner | 建立 Sprint | 逾期 |
+   |--------|-------|-------------|------|
+   | Health Check 自動掛鉤 | Developer | Sprint 2 | 逾期 1 個 Sprint |
+   ```
+
+   ---
+
 1. **在 `docs/km/Retrospective_Log.md` 新增記錄**
    - 以 Sprint 編號為標題新增一筆記錄
    - 記錄日期與參與角色
@@ -147,6 +254,8 @@ Sprint Review & Retrospective 完成後，必須更新以下文件：
 
 完成 Sprint Review & Retrospective 前，確認以下項目全部完成：
 
+- [ ] Retrospective Analytics 報告已展示（四區塊完整：Good 趨勢、Problem 趨勢、Action 關閉速度、待關閉 Items）
+- [ ] Analytics 報告展示完畢後才開始收集 Good / Problem / Action
 - [ ] PO Subagent 已展示所有已完成 Story 的 Demo
 - [ ] Stakeholder Subagent 已確認商業期待符合度
 - [ ] 通過驗收的 Story 已移至 `PROJECT_BOARD.md` Done 欄位
