@@ -1,0 +1,165 @@
+#!/usr/bin/env bash
+# scripts/validate-version.sh
+# US-T04：版號一致性驗證
+#
+# 驗證 .claude-plugin/ 目錄下各檔案的版號一致性。
+#
+# Exit code:
+#   0 = 全部通過（PASS / WARNING）
+#   1 = 有 FAIL
+#
+# 依賴：jq, git, bash >= 4
+
+set -uo pipefail
+
+# ---------------------------------------------------------------------------
+# 常數
+# ---------------------------------------------------------------------------
+readonly PLUGIN_JSON=".claude-plugin/plugin.json"
+readonly MARKETPLACE_JSON=".claude-plugin/marketplace.json"
+
+# ---------------------------------------------------------------------------
+# 狀態追蹤
+# ---------------------------------------------------------------------------
+EXIT_CODE=0
+PLUGIN_VERSION=""
+
+# ---------------------------------------------------------------------------
+# 輔助函式
+# ---------------------------------------------------------------------------
+print_pass() {
+  echo "[PASS] $1"
+}
+
+print_fail() {
+  echo "[FAIL] $1"
+  EXIT_CODE=1
+}
+
+print_warning() {
+  echo "[WARNING] $1"
+}
+
+print_section() {
+  echo ""
+  echo "--- $1"
+}
+
+is_dev_version() {
+  # 回傳 0（true）若版號符合 0.x.x 開發期格式
+  local version="$1"
+  [[ "$version" =~ ^0\.[0-9]+\.[0-9]+$ ]]
+}
+
+# ---------------------------------------------------------------------------
+# 前置檢查：確認必要檔案存在
+# ---------------------------------------------------------------------------
+preflight_check() {
+  local error=0
+
+  if [ ! -f "$PLUGIN_JSON" ]; then
+    echo "[ERROR] 找不到 $PLUGIN_JSON"
+    error=1
+  fi
+
+  if [ ! -f "$MARKETPLACE_JSON" ]; then
+    echo "[ERROR] 找不到 $MARKETPLACE_JSON"
+    error=1
+  fi
+
+  if [ "$error" -eq 1 ]; then
+    echo ""
+    echo "前置檢查失敗，請確認 .claude-plugin/ 目錄結構正確。"
+    exit 1
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# AC1：比較 plugin.json version vs marketplace.json plugins[0].version
+# 結果存入全域變數 PLUGIN_VERSION
+# ---------------------------------------------------------------------------
+check_ac1_json_consistency() {
+  print_section "AC1：plugin.json vs marketplace.json 版號一致性"
+
+  local market_version
+  PLUGIN_VERSION=$(jq -r '.version' "$PLUGIN_JSON")
+  market_version=$(jq -r '.plugins[0].version' "$MARKETPLACE_JSON")
+
+  echo "  plugin.json      version: $PLUGIN_VERSION"
+  echo "  marketplace.json version: $market_version"
+
+  if [ "$PLUGIN_VERSION" = "$market_version" ]; then
+    print_pass "plugin.json 與 marketplace.json 版號一致 ($PLUGIN_VERSION)"
+  else
+    print_fail "版號不一致：plugin.json=$PLUGIN_VERSION，marketplace.json=$market_version"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# AC2 + AC3：比較最新 semver git tag vs plugin.json version
+# ---------------------------------------------------------------------------
+check_ac2_git_tag_consistency() {
+  local plugin_version="$1"
+  print_section "AC2：git tag vs plugin.json 版號一致性"
+
+  # 取得最新 semver tag（v 開頭，依 semver 排序）
+  local latest_tag
+  latest_tag=$(git tag --list 'v*' --sort=-v:refname 2>/dev/null | head -1)
+
+  if [ -z "$latest_tag" ]; then
+    print_pass "無 git tag，跳過 tag 版號檢查"
+    return
+  fi
+
+  # 去除 v 前綴以取得純版號
+  local tag_version="${latest_tag#v}"
+
+  echo "  最新 git tag:    $latest_tag ($tag_version)"
+  echo "  plugin.json:     $plugin_version"
+
+  if [ "$tag_version" = "$plugin_version" ]; then
+    print_pass "git tag 與 plugin.json 版號一致 ($tag_version)"
+    return
+  fi
+
+  # 版號不一致：套用 AC3 規則
+  if is_dev_version "$plugin_version"; then
+    # AC3：0.x.x 開發期，降級為 WARNING
+    print_warning "git tag 與 plugin.json 版號不一致（開發期，允許未對齊）：tag=$tag_version，plugin=$plugin_version"
+  else
+    # 1.0.0 以上：強制 FAIL
+    print_fail "git tag 與 plugin.json 版號不一致：tag=$tag_version，plugin=$plugin_version"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# 主流程
+# ---------------------------------------------------------------------------
+main() {
+  echo "=============================="
+  echo " validate-version.sh"
+  echo " .claude-plugin/ 版號一致性驗證"
+  echo "=============================="
+
+  preflight_check
+
+  # AC1：直接在目前 shell 執行，EXIT_CODE 與 PLUGIN_VERSION 可被修改
+  check_ac1_json_consistency
+
+  # AC2 + AC3
+  check_ac2_git_tag_consistency "$PLUGIN_VERSION"
+
+  # 總結
+  echo ""
+  echo "=============================="
+  if [ "$EXIT_CODE" -eq 0 ]; then
+    echo " 總結：版號驗證全部通過"
+  else
+    echo " 總結：版號驗證發現問題，請修正後重試"
+  fi
+  echo "=============================="
+
+  exit "$EXIT_CODE"
+}
+
+main
