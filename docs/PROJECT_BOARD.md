@@ -14,7 +14,7 @@
 
 | Story | Size | Points | 狀態 |
 |-------|------|--------|------|
-| US-08：Sprint Metrics（Velocity 追蹤與趨勢分析） | S | 1 | 待開發 |
+| US-08：Sprint Metrics（Velocity 追蹤與趨勢分析） | S | 1 | 進行中 |
 | US-09：Retrospective Analytics（問題趨勢分析） | M | 2 | 待開發 |
 | US-T06：Command 路由驗證 | S | 1 | 待開發 |
 

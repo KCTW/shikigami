@@ -137,6 +137,7 @@ Sprint Review & Retrospective 完成後，必須更新以下文件：
 |------|----------|
 | `docs/PROJECT_BOARD.md` | 已完成 Story 移至 Done 欄位；更新 Sprint 統計 |
 | `docs/km/Retrospective_Log.md` | 新增本 Sprint 的 Good / Problem / Action 記錄 |
+| `docs/km/Metrics_Log.md` | 追加本 Sprint Velocity、完成率、趨勢分析記錄 |
 | `docs/prd/PRODUCT_BACKLOG.md` | 未完成 Story 回填至 Backlog，標注未達標原因與重新排序 |
 | `docs/prd/BACKLOG_DONE.md` | 已完成 Story 從 Backlog 移至此處，按 Sprint 歸檔，保留完整 RICE 評分與 AC |
 
@@ -157,3 +158,66 @@ Sprint Review & Retrospective 完成後，必須更新以下文件：
 - [ ] `PRODUCT_BACKLOG.md` 已更新（未完成 Story 回填）
 - [ ] 已完成 Story 從 `PRODUCT_BACKLOG.md` 移至 `BACKLOG_DONE.md`，按 Sprint 歸檔
 - [ ] 觸發 `deployment-readiness`，由 SRE subagent 執行版本 Tag 流程（bump version + git tag）
+- [ ] Sprint Metrics 計算並追加至 `docs/km/Metrics_Log.md`（見下方計算指引）
+
+### Sprint Metrics 計算指引
+
+Sprint Review 結束時，依序執行以下計算並將結果追加至 `docs/km/Metrics_Log.md`。
+
+#### 步驟 1：讀取本 Sprint 資料
+
+讀取 `docs/sprints/sprint_N.md`（N 為本 Sprint 編號），收集交付成果表格。
+
+#### 步驟 2：Velocity 計算
+
+統計狀態欄標記為「完成」或「Done」的 Stories，依 T-shirt Sizing 換算 Story Points：
+
+| Size | Points |
+|------|--------|
+| S    | 1      |
+| M    | 2      |
+| L    | 3      |
+
+**Velocity = 所有 Done Stories 的 Points 加總**
+
+#### 步驟 3：完成率計算
+
+- **分子**：狀態為 Done 的 Story 數量
+- **分母**：Sprint Backlog 所有 Story 數量（含未完成）
+- **完成率 = (Done 數 / 計畫總數) × 100%**
+- **特殊情況**：若分母為 0，輸出「N/A」
+
+#### 步驟 4：趨勢分析
+
+讀取 `docs/km/Metrics_Log.md` 取得歷史 Velocity 資料：
+
+- **Sprint 1–2（資料不足）**：輸出「資料不足」，不進行趨勢判斷
+- **Sprint 3+（啟用趨勢）**：取最近三筆 Velocity，依下列優先順序判定：
+  1. **連升**：最近 2 個 Sprint 的 Velocity 逐步上升 → 輸出「上升趨勢」
+  2. **連降**：最近 2 個 Sprint 的 Velocity 逐步下降 → 輸出「下降趨勢」
+  3. **穩定**：波動在 ±20% 以內（不符合連升或連降） → 輸出「穩定」
+  4. **其他**：無法歸入以上三類 → 輸出「不規則」
+
+#### 步驟 5：歷史回溯（首次建立或檔案為空時）
+
+若 `docs/km/Metrics_Log.md` 不存在或內容為空（無任何資料列），則：
+
+1. 掃描 `docs/sprints/` 目錄下所有 `sprint_N.md`（依 N 升序）
+2. 對每個 sprint 檔案執行步驟 2–3，計算歷史 Velocity 與完成率
+3. 依序寫入 Metrics_Log.md 表格，趨勢欄填入「資料不足」（Sprint 1–2）或依步驟 4 計算
+
+#### 步驟 6：追加記錄至 Metrics_Log.md
+
+在 `docs/km/Metrics_Log.md` 的表格末尾追加一列：
+
+```
+| Sprint N | YYYY-MM-DD | V points | X% | 趨勢 | 備註 |
+```
+
+欄位說明：
+- **Sprint 編號**：`Sprint N`
+- **日期**：當日日期（YYYY-MM-DD）
+- **Velocity**：步驟 2 計算結果，格式為「N points」
+- **完成率**：步驟 3 計算結果，格式為「N%」或「N/A」
+- **趨勢**：步驟 4 計算結果
+- **備註**：可選填，例如特殊情況說明或 Sprint Goal 達成狀態
