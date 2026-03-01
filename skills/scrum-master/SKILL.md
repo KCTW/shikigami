@@ -225,3 +225,4 @@ shikigami.project_level: medium
 | 安全 | 外部輸入通過安全驗證 |
 | 文件 | 設計文件已更新 |
 | 反回歸 | 既有測試全部仍然通過 |
+| 度量 | Metrics_Log.md 本 Sprint 數據已更新（Velocity、完成率、趨勢） |

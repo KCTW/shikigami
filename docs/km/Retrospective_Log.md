@@ -151,5 +151,5 @@
 
 | # | Action | Owner | 驗收方式 | 狀態 |
 |---|--------|-------|----------|------|
-| 1 | 框架工作計點機制：Sprint 5 Planning 評估是否為框架強化工作建立獨立計點類型（Framework Task），無論採用與否決策必須明文化 | PO + Architect | Sprint 5 Planning 結束前決策記錄於文件 | Open |
-| 2 | Metrics_Log 更新列入 DoD：在全局 DoD 定義新增「Metrics_Log.md 本 Sprint 數據已更新」 | PO | Sprint 5 Planning QA Health Check 確認 DoD 含此條目 | Open |
+| 1 | 框架工作計點機制：Sprint 5 Planning 評估是否為框架強化工作建立獨立計點類型（Framework Task），無論採用與否決策必須明文化 | PO + Architect | Sprint 5 Planning 結束前決策記錄於文件 | Closed（Sprint 5 Planning） |
+| 2 | Metrics_Log 更新列入 DoD：在全局 DoD 定義新增「Metrics_Log.md 本 Sprint 數據已更新」 | PO | Sprint 5 Planning QA Health Check 確認 DoD 含此條目 | Closed（Sprint 5 Planning） |

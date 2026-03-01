@@ -1,9 +1,24 @@
 # Project Board
 
-**最後更新**：2026-03-01
-**當前 Sprint**：Sprint 4（完成）— 待 Sprint 5 Planning
+**最後更新**：2026-03-08
+**當前 Sprint**：Sprint 5（進行中）
 
-工件導覽：[ROADMAP](prd/ROADMAP.md) → [Backlog](prd/PRODUCT_BACKLOG.md) → [Sprint 4](sprints/sprint_4.md) → 本看板
+工件導覽：[ROADMAP](prd/ROADMAP.md) → [Backlog](prd/PRODUCT_BACKLOG.md) → [Sprint 5](sprints/sprint_5.md) → 本看板
+
+---
+
+## Sprint 5 — 進行中
+
+**Sprint Goal**：完成 v0.3.0 Tech Debt Registry，並同步建立 ADR-002 解鎖測試框架擴展路徑
+**週期**：2026-03-08 ~ 2026-03-15
+
+| Story | Size | Points | 狀態 | 備注 |
+|-------|------|--------|------|------|
+| ADR-002：測試框架技術選型 | S | 1 | 進行中 | US-T01 Hard Gate 前置 |
+| US-10：Tech Debt Registry | M | 2 | 進行中 | 與 ADR-002 並行 |
+| US-T01：Skill 完整性驗證 | S | 1 | 待開始 | Hard Gate：等待 ADR-002 |
+
+**計畫 Velocity**：4 points（3 Stories）
 
 ---
 
