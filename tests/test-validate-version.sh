@@ -90,12 +90,14 @@ EOF
 }
 
 run_script() {
-  # 在指定目錄下執行腳本，回傳 exit code 與輸出
+  # 在指定目錄下執行腳本，捕捉 exit code 與輸出
+  # 使用 if 結構避免 set -e 提前中止，同時正確取得非零 exit code
   local dir="$1"
-  local output
-  output=$(cd "$dir" && bash "$SCRIPT_UNDER_TEST" 2>&1) || true
-  LAST_EXIT_CODE=$?
-  LAST_OUTPUT="$output"
+  if LAST_OUTPUT=$(cd "$dir" && bash "$SCRIPT_UNDER_TEST" 2>&1); then
+    LAST_EXIT_CODE=0
+  else
+    LAST_EXIT_CODE=$?
+  fi
 }
 
 # ---------------------------------------------------------------------------
