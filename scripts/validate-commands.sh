@@ -30,6 +30,8 @@ readonly SKILLS_DIR="skills"
 # 狀態追蹤
 # ---------------------------------------------------------------------------
 EXIT_CODE=0
+ERROR_COUNT=0
+FILE_COUNT=0
 
 # ---------------------------------------------------------------------------
 # 輔助函式
@@ -41,6 +43,7 @@ print_pass() {
 print_error() {
   echo "[ERROR] $1"
   EXIT_CODE=1
+  ERROR_COUNT=$((ERROR_COUNT + 1))
 }
 
 print_info() {
@@ -53,12 +56,16 @@ print_section() {
 }
 
 # ---------------------------------------------------------------------------
-# 前置檢查：commands/ 目錄必須存在
+# 前置檢查：commands/ 目錄必須存在；skills/ 目錄不存在時給出提示
 # ---------------------------------------------------------------------------
 preflight_check() {
   if [ ! -d "$COMMANDS_DIR" ]; then
     echo "[ERROR] 找不到目錄：$COMMANDS_DIR"
     exit 1
+  fi
+
+  if [ ! -d "$SKILLS_DIR" ]; then
+    print_info "找不到 $SKILLS_DIR/ 目錄，所有 shikigami:xxx 引用將視為不存在"
   fi
 }
 
@@ -107,21 +114,20 @@ skill_exists() {
 }
 
 # ---------------------------------------------------------------------------
-# 驗證單一 command 檔案
+# 驗證單一 command 檔案（AC2 + AC3）
 # 參數：$1 = 檔案路徑
+# 副作用：可能修改全域 EXIT_CODE 與 ERROR_COUNT
 # ---------------------------------------------------------------------------
 validate_command_file() {
   local filepath="$1"
   local filename
   filename=$(basename "$filepath")
-  local file_has_error=0
 
-  # AC3：檢查 frontmatter description
+  # AC3：frontmatter 必須含 description 欄位
   if has_description "$filepath"; then
     print_pass "$filename：frontmatter 含 description 欄位"
   else
     print_error "$filename：frontmatter 缺少 description 欄位"
-    file_has_error=1
   fi
 
   # AC2：提取並驗證 shikigami:xxx 引用
@@ -129,20 +135,38 @@ validate_command_file() {
   skill_refs=$(extract_skill_refs "$filepath")
 
   if [ -z "$skill_refs" ]; then
-    # 無引用 → INFO（不影響 exit code）
+    # 無引用 → INFO，不影響 exit code（AC2 規格：無引用 → INFO 而非 ERROR）
     print_info "$filename：無 shikigami:xxx 引用（直接內嵌指令）"
   else
-    # 逐一驗證每個引用
+    # 逐一驗證每個引用是否有對應 skill 目錄
     while IFS= read -r skill_name; do
       [ -z "$skill_name" ] && continue
       if skill_exists "$skill_name"; then
         print_pass "$filename：引用 shikigami:$skill_name 存在"
       else
         print_error "$filename：引用 shikigami:$skill_name 但 skills/$skill_name 不存在"
-        file_has_error=1
       fi
     done <<< "$skill_refs"
   fi
+}
+
+# ---------------------------------------------------------------------------
+# 驗證所有 command 檔案並輸出清單（AC1 + AC2 + AC3）
+# 參數：$1 = 換行分隔的檔案路徑字串
+# ---------------------------------------------------------------------------
+validate_all_commands() {
+  local command_files="$1"
+
+  FILE_COUNT=$(echo "$command_files" | wc -l | tr -d ' ')
+  echo "  找到 $FILE_COUNT 個 command 檔案："
+  while IFS= read -r f; do
+    echo "    - $f"
+  done <<< "$command_files"
+
+  while IFS= read -r filepath; do
+    print_section "驗證 $(basename "$filepath")"
+    validate_command_file "$filepath"
+  done <<< "$command_files"
 }
 
 # ---------------------------------------------------------------------------
@@ -171,26 +195,16 @@ main() {
     exit 0
   fi
 
-  local file_count
-  file_count=$(echo "$command_files" | wc -l | tr -d ' ')
-  echo "  找到 $file_count 個 command 檔案："
-  while IFS= read -r f; do
-    echo "    - $f"
-  done <<< "$command_files"
+  # AC1 + AC2 + AC3：輸出清單並逐一驗證
+  validate_all_commands "$command_files"
 
-  # AC2 + AC3：逐一驗證每個 command 檔案
-  while IFS= read -r filepath; do
-    print_section "驗證 $(basename "$filepath")"
-    validate_command_file "$filepath"
-  done <<< "$command_files"
-
-  # 總結
+  # 總結（顯示 file 數與 error 數）
   echo ""
   echo "=============================="
   if [ "$EXIT_CODE" -eq 0 ]; then
-    echo " 總結：Command 路由驗證全部通過"
+    echo " 總結：Command 路由驗證全部通過（共 $FILE_COUNT 個檔案）"
   else
-    echo " 總結：Command 路由驗證發現問題，請修正後重試"
+    echo " 總結：Command 路由驗證發現 $ERROR_COUNT 個 ERROR，請修正後重試"
   fi
   echo "=============================="
 
