@@ -297,3 +297,90 @@ As a Developer, I want a check that ensures version numbers are consistent acros
 **MoSCoW**：Should
 **Size**：S
 **TDD**：Red-Green-Refactor，11 個測試案例全覆蓋
+
+---
+
+## Sprint 4（2026-03-01）
+
+**Sprint Goal**：啟動 v0.3.0 知識沉澱，以 US-08 Sprint Metrics 完成 v0.2.0 收尾，並建立 Retrospective Analytics 的第一層能力
+
+| Story | RICE | MoSCoW | ADR | 完成狀態 |
+|-------|------|--------|-----|----------|
+| US-08：Sprint Metrics（Velocity 追蹤與趨勢分析） | 13.7 | Should | — | Done |
+| US-09：Retrospective Analytics（問題趨勢分析） | 17.0 | Should | — | Done |
+| US-T06：Command 路由驗證 | 18.0 | Should | — | Done |
+
+---
+
+### US-08：Sprint Metrics（Velocity 追蹤與趨勢分析）
+
+**標題**：Sprint Review 自動計算 Velocity 與趨勢
+
+**User Story**
+As a Scrum Master, I want Sprint Metrics automatically calculated and appended at the end of each Sprint Review, so that I can track Velocity trends across Sprints and make data-driven capacity decisions for Sprint Planning.
+
+**Acceptance Criteria**（含類型標注）
+
+| # | 類型 | 條件 | 通過標準 |
+|---|------|------|----------|
+| AC1 | [靜態] | 觸發整合 | sprint-review SKILL.md 第 6 節檢查清單新增 Metrics 計算 |
+| AC2 | [靜態] | Velocity 計算 | T-shirt Sizing 換算（S=1, M=2, L=3） |
+| AC3 | [靜態] | 完成率計算 | Done/計畫總數，分母為 0 時 N/A |
+| AC4 | [靜態] | 累積記錄 | 追加至 docs/km/Metrics_Log.md |
+| AC5 | [動態] | 趨勢分析 | 3+ Sprint 啟用，先判連續方向再判穩定 |
+| AC6 | [動態] | 資料不足降級 | Sprint 1-2 輸出資料不足訊息 |
+| AC7 | [靜態] | 歷史回溯 | 檔案不存在時從 sprint_N.md 回溯 |
+
+**RICE**：13.7
+**MoSCoW**：Should
+**Size**：S（Architect 調整，原 M）
+
+---
+
+### US-09：Retrospective Analytics（問題趨勢分析與模式辨識）
+
+**標題**：Retrospective 開始前展示歷史趨勢分析報告
+
+**User Story**
+As a Scrum Master, I want the Retrospective Analytics report displayed automatically before each Retrospective session, so that the team can review recurring problems and unresolved root causes rather than re-discovering the same issues every Sprint.
+
+**Acceptance Criteria**（含類型標注）
+
+| # | 類型 | 條件 | 通過標準 |
+|---|------|------|----------|
+| AC1 | [靜態] | 觸發時機 | sprint-review SKILL.md 第 3 節步驟 0 |
+| AC2 | [動態] | Good 頻率統計 | 2+ 次清單 |
+| AC3 | [動態] | Problem 頻率統計 | 含「未解決」判定 |
+| AC4 | [靜態] | 重複 Problem 警示 | 連續→醒目，間斷→說明不觸發 |
+| AC5 | [靜態] | Action Items 關閉速度 | 平均/最快/最慢 |
+| AC6 | [靜態] | Open Action Items 警示 | 單獨列出 |
+| AC7 | [動態] | 報告格式一致性 | 四區塊缺一不可 |
+| AC8 | [動態] | 資料不足降級 | 1 Sprint 時頻率統計降級 |
+| AC9 | [靜態] | 檔案不存在處理 | 明確提示正常結束 |
+
+**RICE**：17.0
+**MoSCoW**：Should
+**Size**：M
+
+---
+
+### US-T06：Command 路由驗證
+
+**標題**：驗證 Command 到 Skill 的路由正確性
+
+**User Story**
+As a Developer, I want to verify that each command correctly delegates to an existing skill, so that routing failures are caught before users encounter them.
+
+**Acceptance Criteria**（含類型標注）
+
+| # | 類型 | 條件 | 通過標準 |
+|---|------|------|----------|
+| AC1 | [靜態] | 掃描範圍 | commands/ 下所有 .md |
+| AC2 | [靜態] | 引用存在性 | shikigami:xxx 指向存在的 Skill，無引用→INFO |
+| AC3 | [靜態] | Frontmatter | 含 description 欄位 |
+| AC4 | [靜態] | Exit code | 0=全通過，非0=有 ERROR |
+
+**RICE**：18.0
+**MoSCoW**：Should
+**Size**：S
+**TDD**：Red-Green-Refactor，5 test cases，16 assertions

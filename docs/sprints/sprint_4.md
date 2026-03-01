@@ -1,7 +1,7 @@
 # Sprint 4
 
 > 週期：2026-03-07 ~ 2026-03-14
-> 狀態：進行中（v0.3.0 開始）
+> 狀態：已完成（v0.2.0 收尾 + v0.3.0 開始）
 > 專案等級：low（完全自治）
 
 ---
@@ -20,9 +20,9 @@ US-08 是 v0.2.0 ROADMAP 的最後一個 Should Story，Sprint 3 因容量決策
 
 | Story | 任務 | 負責 | 狀態 |
 |---|---|---|---|
-| US-08：Sprint Metrics（Velocity 追蹤與趨勢分析） | 修改 `skills/sprint-review/SKILL.md` 第 6 節執行檢查清單，新增 Sprint Metrics 計算步驟；新建 `docs/km/Metrics_Log.md` 格式規範；實作 Velocity 計算、完成率計算、趨勢分析與歷史回溯邏輯 | Developer + QA | 待開發 |
-| US-09：Retrospective Analytics（問題趨勢分析） | 修改 `skills/sprint-review/SKILL.md` 第 3 節 Sprint Retrospective 流程，在第一步插入 Retrospective Analytics 呼叫；實作 Good/Problem 頻率統計、重複問題警示、Action Item 關閉速度分析 | Developer + QA | 待開發 |
-| US-T06：Command 路由驗證 | 新建 Command 路由驗證腳本，掃描 `commands/` 下所有 `.md` 檔案，驗證 `shikigami:xxx` 引用指向存在的 Skill | Developer + QA | 待開發 |
+| US-08：Sprint Metrics（Velocity 追蹤與趨勢分析） | 修改 `skills/sprint-review/SKILL.md` 第 6 節執行檢查清單，新增 Sprint Metrics 計算步驟；新建 `docs/km/Metrics_Log.md` 格式規範；實作 Velocity 計算、完成率計算、趨勢分析與歷史回溯邏輯 | Developer + QA | 完成 |
+| US-09：Retrospective Analytics（問題趨勢分析） | 修改 `skills/sprint-review/SKILL.md` 第 3 節 Sprint Retrospective 流程，在第一步插入 Retrospective Analytics 呼叫；實作 Good/Problem 頻率統計、重複問題警示、Action Item 關閉速度分析 | Developer + QA | 完成 |
+| US-T06：Command 路由驗證 | 新建 Command 路由驗證腳本，掃描 `commands/` 下所有 `.md` 檔案，驗證 `shikigami:xxx` 引用指向存在的 Skill | Developer + QA | 完成 |
 
 ---
 
@@ -155,24 +155,24 @@ As a Developer, I want to verify that each command correctly delegates to an exi
 
 ## 驗收標準
 
-- [ ] US-08：`skills/sprint-review/SKILL.md` 第 6 節執行檢查清單最後一項為 Sprint Metrics 計算（AC1 通過）
-- [ ] US-08：Velocity 計算以「完成」或「Done」為判定值，依 S/M/L 換算 Points（AC2 通過）
-- [ ] US-08：完成率計算含 Carry-over 列出與分母為 0 時 N/A 處理（AC3 通過）
-- [ ] US-08：Metrics 追加至 `docs/km/Metrics_Log.md`，格式含 Sprint 編號 + 日期 + Velocity + 完成率 + 備註（AC4 通過）
-- [ ] US-08：趨勢判定先判連續方向，不成立才判穩定（AC5 通過，[動態]）
-- [ ] US-08：Sprint 1-2 時趨勢分析輸出資料不足訊息，不報錯（AC6 通過，[動態]）
-- [ ] US-08：Metrics_Log.md 不存在或為空時從既有 sprint_N.md 回溯計算（AC7 通過）
-- [ ] US-09：`skills/sprint-review/SKILL.md` 第 3 節 Retrospective 流程第一步為 Analytics 呼叫（AC1 通過）
-- [ ] US-09：Good 頻率統計輸出 2 次以上清單（AC2 通過，[動態]）
-- [ ] US-09：Problem 頻率統計含「未解決」判定規則（AC3 通過，[動態]）
-- [ ] US-09：連續重複 Problem 觸發醒目警示，間斷情境輸出「曾連續 N 個 Sprint」且不觸發警示（AC4 通過）
-- [ ] US-09：Action Items 關閉速度統計含平均/最快/最慢及逾期列出（AC5 通過）
-- [ ] US-09：Open Action Items 單獨列出（AC6 通過）
-- [ ] US-09：報告含四個固定區塊（AC7 通過，[動態]）
-- [ ] US-09：資料不足降級不報錯（AC8 通過，[動態]）
-- [ ] US-09：Retrospective_Log.md 不存在時輸出明確提示並正常結束（AC9 通過）
-- [ ] US-T06：掃描輸出檔案清單，數量與 commands/ 目錄實際 .md 檔案數一致（AC1 通過）
-- [ ] US-T06：shikigami:xxx 引用指向存在的 Skill（AC2 通過），無引用時輸出 INFO 而非 ERROR（AC2 通過）
-- [ ] US-T06：command frontmatter 含 description 欄位（AC3 通過）
-- [ ] US-T06：exit code 0 全通過，非 0 存在 ERROR（AC4 通過）
-- [ ] 既有功能不受影響（反回歸：sprint-review 其餘流程、retrospective 流程、scrum-master 路由）
+- [x] US-08：`skills/sprint-review/SKILL.md` 第 6 節執行檢查清單最後一項為 Sprint Metrics 計算（AC1 通過）
+- [x] US-08：Velocity 計算以「完成」或「Done」為判定值，依 S/M/L 換算 Points（AC2 通過）
+- [x] US-08：完成率計算含 Carry-over 列出與分母為 0 時 N/A 處理（AC3 通過）
+- [x] US-08：Metrics 追加至 `docs/km/Metrics_Log.md`，格式含 Sprint 編號 + 日期 + Velocity + 完成率 + 備註（AC4 通過）
+- [x] US-08：趨勢判定先判連續方向，不成立才判穩定（AC5 通過，[動態]）
+- [x] US-08：Sprint 1-2 時趨勢分析輸出資料不足訊息，不報錯（AC6 通過，[動態]）
+- [x] US-08：Metrics_Log.md 不存在或為空時從既有 sprint_N.md 回溯計算（AC7 通過）
+- [x] US-09：`skills/sprint-review/SKILL.md` 第 3 節 Retrospective 流程第一步為 Analytics 呼叫（AC1 通過）
+- [x] US-09：Good 頻率統計輸出 2 次以上清單（AC2 通過，[動態]）
+- [x] US-09：Problem 頻率統計含「未解決」判定規則（AC3 通過，[動態]）
+- [x] US-09：連續重複 Problem 觸發醒目警示，間斷情境輸出「曾連續 N 個 Sprint」且不觸發警示（AC4 通過）
+- [x] US-09：Action Items 關閉速度統計含平均/最快/最慢及逾期列出（AC5 通過）
+- [x] US-09：Open Action Items 單獨列出（AC6 通過）
+- [x] US-09：報告含四個固定區塊（AC7 通過，[動態]）
+- [x] US-09：資料不足降級不報錯（AC8 通過，[動態]）
+- [x] US-09：Retrospective_Log.md 不存在時輸出明確提示並正常結束（AC9 通過）
+- [x] US-T06：掃描輸出檔案清單，數量與 commands/ 目錄實際 .md 檔案數一致（AC1 通過）
+- [x] US-T06：shikigami:xxx 引用指向存在的 Skill（AC2 通過），無引用時輸出 INFO 而非 ERROR（AC2 通過）
+- [x] US-T06：command frontmatter 含 description 欄位（AC3 通過）
+- [x] US-T06：exit code 0 全通過，非 0 存在 ERROR（AC4 通過）
+- [x] 既有功能不受影響（反回歸：sprint-review 其餘流程、retrospective 流程、scrum-master 路由）

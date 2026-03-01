@@ -1,19 +1,7 @@
 # Product Backlog
 
-**最後更新**：2026-03-01（Sprint 4 Planning）
+**最後更新**：2026-03-01（Sprint 4 Review 完成）
 **管理者**：Product Owner
-
----
-
-## 進行中 Stories（Sprint 4）
-
-**Sprint 週期**：2026-03-07 ~ 2026-03-14
-
-| Story | Size | Points | 狀態 |
-|-------|------|--------|------|
-| US-08：Sprint Metrics（Velocity 追蹤與趨勢分析） | S | 1 | 待開發 |
-| US-09：Retrospective Analytics（問題趨勢分析） | M | 2 | 待開發 |
-| US-T06：Command 路由驗證 | S | 1 | 待開發 |
 
 ---
 
@@ -36,76 +24,6 @@
 | 5 | US-T07：CI Pipeline | 24.0 | Should | M | — |
 | 6 | US-T09：孤兒文件清理規範 | 16.7 | Could | S | — |
 | 7 | US-T08：Intent Routing 測試 | 6.0 | Could | L | — |
-
----
-
-### US-08：Sprint Metrics（Velocity 追蹤與趨勢分析）
-
-**User Story**
-As a Scrum Master, I want Sprint Metrics automatically calculated and appended at the end of each Sprint Review, so that I can track Velocity trends across Sprints and make data-driven capacity decisions for Sprint Planning.
-
-**Acceptance Criteria**（QA 修正後版本，含類型標注）
-
-| # | 類型 | 條件 | 通過標準 |
-|---|------|------|----------|
-| AC1 | [靜態] | 觸發整合 | `skills/sprint-review/SKILL.md` 第 6 節執行檢查清單新增最後一項：Sprint Metrics 計算。Sprint Review 完成時 Metrics 自動附加，無需人工觸發 |
-| AC2 | [靜態] | Velocity 計算 | 讀取當期 `docs/sprints/sprint_N.md`，統計 Sprint Backlog 中狀態為 Done 的 Story 數量，以 sprint_N.md 中 Story 狀態欄值為「完成」或「Done」者計入；依 T-shirt Sizing（S=1, M=2, L=3）換算 Story Points；輸出「本期 Velocity：X points（Y Stories）」 |
-| AC3 | [靜態] | 完成率計算 | 計算「計畫 Stories 數 vs 實際完成 Stories 數」；輸出完成率百分比；若有 Carry-over，列出未完成 Story 名稱。計畫 Stories 數 = Sprint Backlog 表格中所有 Story（含完成與未完成）。分母為 0 時輸出 N/A |
-| AC4 | [靜態] | 累積記錄 | 每次 Sprint Review 後，將 Metrics 追加至 `docs/km/Metrics_Log.md`（若不存在則建立）；格式：Sprint 編號 + 日期 + Velocity + 完成率 + 備註 |
-| AC5 | [動態] | 趨勢分析（3+ Sprint 後啟用） | 當 `Metrics_Log.md` 累積 3 個以上 Sprint 記錄時，輸出趨勢判斷。判斷優先級：先判連續方向（連升 2+/連降 2+），成立則優先判為「改善中（Velocity 連續上升）」或「退步中（Velocity 連續下降）」；不成立才判「穩定（上下波動 ≤ 20%）」 |
-| AC6 | [動態] | 資料不足降級 | Sprint 1 或 Sprint 2 時，趨勢分析輸出「資料不足，需 3 個以上 Sprint 才能分析趨勢」；不報錯，其餘指標正常顯示 |
-| AC7 | [靜態] | 歷史回溯 | 當 Metrics_Log.md 不存在或為空時，從所有既有 sprint_N.md 回溯計算，補齊 `Metrics_Log.md` 的歷史空白 |
-
-**RICE**：Reach 6 × Impact 2 × Confidence 80% ÷ Effort 0.7 = **13.7**
-**MoSCoW**：Should
-**Size**：S（Architect 調整，原 M）
-**Points**：1
-**ADR**：—
-
----
-
-### US-09：Retrospective Analytics（問題趨勢分析與模式辨識）
-
-**User Story**
-As a Scrum Master, I want the Retrospective Analytics report displayed automatically before each Retrospective session, so that the team can review recurring problems and unresolved root causes rather than re-discovering the same issues every Sprint.
-
-**背景與動機**
-
-Sprint 2 和 Sprint 3 的 Problem 區段均出現「Sprint Review 自動觸發失敗」，且 Sprint 1 的 Action Item #1 被誤判 Closed 後在 Sprint 2 重犯，根因是缺乏跨 Sprint 的模式辨識機制。本 Story 直接解決此類盲點，是 v0.3.0「知識沉澱」里程碑的首個交付。
-
-**資料源**：`docs/km/Retrospective_Log.md`
-
-格式參考（已知 3 個 Sprint 的實際結構）：
-- 每個 Sprint 區段包含：Good 條列 / Problem 條列 / Action Items 表格（Owner、驗收方式、狀態）
-- Action Items 狀態值：`Open` / `Closed（Sprint N）`
-
-**Acceptance Criteria**（QA 修正後版本，含類型標注）
-
-| # | 類型 | 條件 | 通過標準 |
-|---|------|------|----------|
-| AC1 | [靜態] | 觸發時機 | `skills/sprint-review/SKILL.md` 第 3 節 Sprint Retrospective 流程第一步插入 Retrospective Analytics 呼叫。展示報告前不得開始收集 Good/Problem/Action |
-| AC2 | [動態] | Good 頻率統計 | 讀取 `docs/km/Retrospective_Log.md` 所有 Sprint 的 Good 條列；輸出「出現 2 次以上的 Good」清單，格式：主題關鍵字 + 出現次數 + 最近一次出現的 Sprint 編號 |
-| AC3 | [動態] | Problem 頻率統計 | 讀取所有 Sprint 的 Problem 條列；輸出「出現 2 次以上的 Problem」清單，格式：主題關鍵字 + 出現次數 + 首次出現 Sprint + 最近出現 Sprint；標注「跨 N 個 Sprint 未解決」。「未解決」判定：Problem 重複出現且最近一次出現 Sprint 無對應 Closed Action Item 視為未解決 |
-| AC4 | [靜態] | 重複 Problem 根因警示 | 若某 Problem 在連續 Sprint 中出現（例如 Sprint 1 和 Sprint 2 均有），報告中以醒目格式標注「重複問題（連續 N 個 Sprint）」；「Sprint Review 自動觸發」類問題必須被此規則捕捉。間斷情境（Sprint 1 有、Sprint 2 有、Sprint 3 無）輸出「曾連續 2 個 Sprint（Sprint 1-2）」，不觸發醒目警示 |
-| AC5 | [靜態] | Action Items 關閉速度 | 統計所有 Action Items 的關閉速度：從出現 Sprint 到 `Closed（Sprint N）` 之間的 Sprint 數差；輸出：平均關閉速度（X.X 個 Sprint）、最快（N 個 Sprint）、最慢（N 個 Sprint）；仍 `Open` 的 Items 列出「逾期 N 個 Sprint 未關閉」 |
-| AC6 | [靜態] | Open Action Items 警示 | 若 `Retrospective_Log.md` 中存在狀態為 `Open` 的 Action Items，報告最後單獨列出「待關閉 Action Items」區塊，包含 Item 內容、Owner、出現 Sprint |
-| AC7 | [動態] | 報告格式一致性 | Analytics 報告輸出包含四個固定區塊：① Good 趨勢 ② Problem 趨勢（含重複警示）③ Action Item 關閉速度 ④ 待關閉 Action Items；缺少任一區塊視為不通過 |
-| AC8 | [動態] | 資料不足降級 | 當 `Retrospective_Log.md` 只有 1 個 Sprint 記錄時，頻率統計輸出「資料不足，需 2 個以上 Sprint 才能分析趨勢」；不報錯，其餘可計算的指標（如 Open Action Items）正常顯示 |
-| AC9 | [靜態] | 檔案不存在處理 | 若 `docs/km/Retrospective_Log.md` 不存在，輸出「尚無 Retrospective 記錄，請完成第一次 Retrospective 後再執行分析」並正常結束，不丟出例外或空白報告 |
-
-**RICE 評分**
-
-| 因子 | 值 | 說明 |
-|------|----|------|
-| Reach | 7 | 每個 Sprint Retrospective 強制觸發，Scrum Master 主用，PO 參考；相比 US-08 受眾多 1 個角色 |
-| Impact | 2 | 直接減少重複犯錯（Sprint 2/3 均出現的問題）；屬行為改善而非核心交付阻塞，故為中等 |
-| Confidence | 85% | 資料格式已知（3 Sprint 實際格式），技術實作為 Markdown 文字解析，無外部依賴 |
-| Effort | 0.7 | Size M；文字解析 + 模式匹配 + sprint-retrospective SKILL 整合；比 US-08 多一個模式辨識模組 |
-
-**RICE**：Reach 7 × Impact 2 × Confidence 85% ÷ Effort 0.7 = **17.0**
-**MoSCoW**：Should
-**Size**：M
-**ADR**：—
 
 ---
 
@@ -173,27 +91,6 @@ As a Developer, I want a script that verifies all `shikigami:xxx` references poi
 
 **RICE**：Reach 8 × Impact 2 × Confidence 80% ÷ Effort 0.5 = **25.6**
 **MoSCoW**：Should
-
----
-
-### US-T06：Command 路由驗證
-
-**User Story**
-As a Developer, I want to verify that each command correctly delegates to an existing skill, so that routing failures are caught before users encounter them.
-
-**Acceptance Criteria**（QA 修正後版本，含類型標注）
-
-| # | 類型 | 條件 | 通過標準 |
-|---|------|------|----------|
-| AC1 | [靜態] | 掃描範圍 | 掃描 `commands/` 下所有 `.md` 檔案；腳本輸出掃描到的檔案清單，數量與 commands/ 目錄實際 .md 檔案數一致 |
-| AC2 | [靜態] | 引用存在性驗證 | 驗證引用的 `shikigami:xxx` skill 存在；若 command 未引用任何 `shikigami:xxx`，視為無引用需驗證，輸出 INFO 而非 ERROR |
-| AC3 | [靜態] | Frontmatter 驗證 | 驗證 command frontmatter 包含 `description` 欄位 |
-| AC4 | [靜態] | Exit code | exit code 0 = 全部通過，非 0 = 存在 ERROR（INFO 不影響 exit code） |
-
-**RICE**：Reach 6 × Impact 1 × Confidence 90% ÷ Effort 0.3 = **18.0**
-**MoSCoW**：Should
-**Size**：S
-**Points**：1
 
 ---
 

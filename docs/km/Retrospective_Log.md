@@ -117,3 +117,39 @@
 |---|--------|-------|----------|------|
 | 1 | AC 分類標注：Backlog Grooming/Sprint Planning 時每個 AC 標注驗收類型：[靜態]（文件結構可直接驗證）或 [動態]（需執行 AI 流程觀測），降低 QA 審查量 | QA | 下次 Sprint Planning AC 表格含 [靜態]/[動態] 標注 | Closed（Sprint 4 Planning） |
 | 2 | sprint-planning 第 6 節同步：補入步驟 0（健康檢查）使 Checklist 與派遣說明一致 | Developer | sprint-planning SKILL.md 第 6 節含步驟 0 健康檢查 | Closed（Sprint 4 Planning） |
+
+---
+
+## Sprint 4 — 2026-03-01
+
+**Sprint Goal**：啟動 v0.3.0 知識沉澱，以 US-08 Sprint Metrics 完成 v0.2.0 收尾，並建立 Retrospective Analytics 的第一層能力
+**結果**：Goal 達成。全部 3 個 Stories 完成交付。
+
+### 交付成果
+
+| Story | Size | 狀態 | 驗收 |
+|-------|------|------|------|
+| US-08：Sprint Metrics（Velocity 追蹤與趨勢分析） | S | Done | AC 全通過（7/7）— sprint-review 第 6 節 Metrics 計算指引 + Metrics_Log.md 歷史回溯 |
+| US-09：Retrospective Analytics（問題趨勢分析） | M | Done | AC 全通過（9/9）— sprint-review 第 3 節 Analytics 步驟 0 + 四區塊報告格式 |
+| US-T06：Command 路由驗證 | S | Done | AC 全通過（4/4）— TDD 16/16 assertions，scripts/validate-commands.sh |
+
+**Velocity**：4 points（2S + 1M = 1+1+2）
+
+### Good（保持做的事）
+
+- **Sprint Goal 100% 達成，完成率維持 100%**：Architect 對 US-08 點數重新估算（M→S）顯示估點機制持續校正
+- **Sprint Review 自動觸發連續第 2 個 Sprint 正常運作**：框架自動化行為穩定，不再依賴使用者觸發
+- **Retro Action Items 追蹤機制有效**：Sprint 3 的 2 個 Action Items 在 Sprint 4 Planning 即關閉；Analytics 確認歷史 8 個 Items 全部已關閉
+- **QA 在 Planning 發揮前置攔截價值**：發現 2 個 BLOCK（US-08 AC1 模糊、US-09 AC1 引用錯誤），PO 當場修正，阻止缺陷進入 Execution
+
+### Problem（需改進的事）
+
+- **Velocity 絕對值持續下降（8→5→5→4）**：雖在穩定閾值內（±20%），但框架強化工作（Issue Triage 路由、GitHub scan、standup）未計入 Velocity，實際產出被低估
+- **Metrics_Log 更新未列入 DoD**：US-08 交付後 Metrics_Log 後續更新屬自由心證，Stakeholder 在 Review 才提出列入 DoD
+
+### Action Items
+
+| # | Action | Owner | 驗收方式 | 狀態 |
+|---|--------|-------|----------|------|
+| 1 | 框架工作計點機制：Sprint 5 Planning 評估是否為框架強化工作建立獨立計點類型（Framework Task），無論採用與否決策必須明文化 | PO + Architect | Sprint 5 Planning 結束前決策記錄於文件 | Open |
+| 2 | Metrics_Log 更新列入 DoD：在全局 DoD 定義新增「Metrics_Log.md 本 Sprint 數據已更新」 | PO | Sprint 5 Planning QA Health Check 確認 DoD 含此條目 | Open |
