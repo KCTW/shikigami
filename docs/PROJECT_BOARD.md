@@ -1,9 +1,24 @@
 # Project Board
 
 **最後更新**：2026-03-01
-**當前 Sprint**：Sprint 4（待規劃）
+**當前 Sprint**：Sprint 4（進行中）
 
-工件導覽：[ROADMAP](prd/ROADMAP.md) → [Backlog](prd/PRODUCT_BACKLOG.md) → [Sprint 3](sprints/sprint_3.md) → 本看板
+工件導覽：[ROADMAP](prd/ROADMAP.md) → [Backlog](prd/PRODUCT_BACKLOG.md) → [Sprint 4](sprints/sprint_4.md) → 本看板
+
+---
+
+## Sprint 4 — 進行中
+
+**Sprint Goal**：「啟動 v0.3.0 知識沉澱，以 US-08 Sprint Metrics 完成 v0.2.0 收尾，並建立 Retrospective Analytics 的第一層能力」
+**週期**：2026-03-07 ~ 2026-03-14
+
+| Story | Size | Points | 狀態 |
+|-------|------|--------|------|
+| US-08：Sprint Metrics（Velocity 追蹤與趨勢分析） | S | 1 | 待開發 |
+| US-09：Retrospective Analytics（問題趨勢分析） | M | 2 | 待開發 |
+| US-T06：Command 路由驗證 | S | 1 | 待開發 |
+
+**計畫 Velocity**：4 points（3 Stories）
 
 ---
 

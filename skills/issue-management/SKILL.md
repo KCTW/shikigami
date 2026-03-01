@@ -216,6 +216,39 @@ Triage 結果摘要：
 | 2 | #124 希望支援 dark mode | Feature | feature-request | — |
 ```
 
+### 10.1 Triage 後路由（Post-Triage Routing）
+
+分類完成後，依類型進入不同路徑：
+
+```
+Triage 分類結果
+  │
+  ├─ question        → 直接回覆（第 9 節 Comment）→ close → 結束
+  ├─ documentation   → 小修（< 5 行）：直接修改 + close
+  │                    大改：走 Backlog Bridge（第 11 節）
+  ├─ bug             → 回覆「已收到」→ Backlog Bridge（第 11 節）
+  ├─ feature-request → 回覆「已列入評估」→ Backlog Bridge（第 11 節）
+  └─ invalid         → 回覆說明原因 → close（reason: "not planned"）→ 結束
+```
+
+**快速通道（不進 Backlog）**：
+
+| 類型 | 處理方式 | 需要開發？ | 進 Backlog？ |
+|------|---------|-----------|-------------|
+| question | 直接在 issue comment 回答，回完 close | 否 | 否 |
+| documentation（小修） | 直接修改文件，issue 留言說明已修正，close | 否 | 否 |
+| invalid | 留言說明原因，close（not planned） | 否 | 否 |
+
+**開發通道（進 Backlog）**：
+
+| 類型 | 處理方式 | 進 Backlog？ | Sprint 排序？ |
+|------|---------|-------------|--------------|
+| bug | Triage 時回覆「已收到，團隊將評估」→ Backlog Bridge | 是 | PO 排優先級 |
+| feature-request | Triage 時回覆「已列入評估」→ Backlog Bridge | 是 | PO 排優先級 |
+| documentation（大改） | 走 Backlog Bridge，由 PO 決定 Sprint 排序 | 是 | PO 排優先級 |
+
+**原則**：Sprint 進行中不插入新需求。所有進 Backlog 的 issue 由 PO 在下次 Sprint Planning 時排序決定是否納入。P0 緊急修復除外（由 Stakeholder 決策中斷當前 Sprint）。
+
 ---
 
 ## 11. Backlog Bridge — Issue 轉 User Story
