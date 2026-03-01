@@ -17,8 +17,9 @@
 | ADR-002：測試框架技術選型 | S | 1 | 進行中 | US-T01 Hard Gate 前置 |
 | US-10：Tech Debt Registry | M | 2 | 進行中 | 與 ADR-002 並行 |
 | US-T01：Skill 完整性驗證 | S | 1 | 待開始 | Hard Gate：等待 ADR-002 |
+| US-FIX-01：修復審計發現 | M | 2 | 待開始 | 13 項監控缺口文件修正 |
 
-**計畫 Velocity**：4 points（3 Stories）
+**計畫 Velocity**：6 points（4 Stories）
 
 ---
 

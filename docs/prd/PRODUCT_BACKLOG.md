@@ -14,6 +14,7 @@
 | ADR-002：測試框架技術選型 | 90.0 | Must | S | 1 |
 | US-10：Tech Debt Registry | 19.4 | Must | M | 2 |
 | US-T01：Skill 完整性驗證 | 54.0 | Must | S | 1 |
+| US-FIX-01：修復審計發現 | 90.0 | Must | M | 2 |
 
 ---
 
@@ -75,6 +76,26 @@ As a Developer, I want a script that verifies every skill directory has a valid 
 
 ---
 
+### US-FIX-01：修復審計發現
+
+**User Story**
+As a Developer, I want framework documents (DoD, standup, health-check, sprint-planning, sprint-review) to be consistent and complete, so that monitoring gaps don't allow defects to slip through undetected.
+
+**修改目標**：`skills/scrum-master/SKILL.md`、`skills/sprint-execution/SKILL.md`、`commands/standup.md`、`skills/health-check/SKILL.md`、`skills/sprint-planning/SKILL.md`、`skills/sprint-review/SKILL.md`
+
+**Acceptance Criteria**
+- AC-A1：`scrum-master/SKILL.md` 第 8 節與 `sprint-execution/SKILL.md` 第 5 節 DoD 統一為 7 層（功能、測試、安全、文件、設定、度量、反回歸），兩份文件完全一致
+- AC-A2：`commands/standup.md` 新增「GitHub Issues 掃描」區塊，執行 `gh issue list` 並包含掃描範圍說明
+- AC-A3：`skills/health-check/SKILL.md` 掃描清單新增 ROADMAP.md 與 Metrics_Log.md；ROADMAP 版號與 plugin.json 同步檢查
+- AC-A4：`skills/sprint-planning/SKILL.md` 第 2 節新增 ROADMAP 讀取步驟；第 2 節與第 6 節步驟一致
+- AC-A5：`skills/sprint-review/SKILL.md` 產出文件含 ROADMAP 更新項、checklist 含 ROADMAP checkbox、Action Items 含 Issue close 步驟
+
+**RICE**：Reach 10 × Impact 3 × Confidence 90% ÷ Effort 0.3 = **90.0**
+**MoSCoW**：Must
+**Size**：M / **Points**：2
+
+---
+
 ## 待選 Stories
 
 ### v0.3.0 知識沉澱 — 候選 Stories
@@ -94,6 +115,33 @@ As a Developer, I want a script that verifies every skill directory has a valid 
 | 7 | US-T08：Intent Routing 測試 | 6.0 | Could | L | — |
 
 > US-T01 詳情見「進行中 Stories（Sprint 5）」區段（含 QA 修正後版本 AC）。
+
+### 框架品質 — 候選 Stories
+
+| 排序 | Story | RICE | MoSCoW | Size | ADR |
+|------|-------|------|--------|------|-----|
+| 1 | US-FIX-02：Hard Gate Checklist 機制 | 27.0 | Must | L | ADR-003 |
+
+---
+
+### US-FIX-02：Hard Gate Checklist 機制
+
+**User Story**
+As a Scrum Master, I want structural Hard Gate checklists at framework document changes, out-of-sprint changes, and ceremony completion, so that process compliance is enforced by mechanism rather than by memory.
+
+**前置條件**：ADR-003（已完成，Accepted）
+
+**Acceptance Criteria**
+- AC-B1：ADR-003 狀態為 Accepted（前置條件）
+- AC-B2：`skills/scrum-master/SKILL.md` 新增 Preflight Check 區段：框架文件（skills/、commands/、agents/）修改前自動觸發 4 項二元 checklist
+- AC-B3：Framework Document Change Audit 實作為 Hard Gate，checklist 內容與 ADR-003 實作方式一致
+- AC-B4：Out-of-Sprint Change Audit 實作為 Hard Gate，含緊急例外路徑（[EMERGENCY] 標注 + 48hr 事後稽核）
+- AC-B5：Ceremony Integrity Audit 實作為 Hard Gate，Sprint Planning 與 Sprint Review 各有獨立 checklist
+
+**RICE**：Reach 10 × Impact 3 × Confidence 90% ÷ Effort 1.0 = **27.0**
+**MoSCoW**：Must
+**ADR**：ADR-003
+**Size**：L / **Points**：3
 
 ---
 
